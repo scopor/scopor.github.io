@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Sanoon</title>
-    <link>https://desperado.github.io/</link>
+    <link>https://scopor.github.io/</link>
     <description>Recent content on Sanoon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Sat, 15 Feb 2020 23:55:21 +0800</lastBuildDate>
     
-	<atom:link href="https://desperado.github.io/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://scopor.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>天黑</title>
-      <link>https://desperado.github.io/posts/%E5%A4%A9%E9%BB%91/</link>
+      <link>https://scopor.github.io/posts/%E5%A4%A9%E9%BB%91/</link>
       <pubDate>Sat, 15 Feb 2020 23:55:21 +0800</pubDate>
       
-      <guid>https://desperado.github.io/posts/%E5%A4%A9%E9%BB%91/</guid>
+      <guid>https://scopor.github.io/posts/%E5%A4%A9%E9%BB%91/</guid>
       <description>由于众所周知的原因，在家快憋疯的贾老师和我趁着周末 全副武装 的驱车到县郊外散心，偶然摄得此景。 天气也是给力的紧，烦闷的情绪也就去了大半，贾老师也不时的笑笑。 想来此时能看到这悠悠蓝天，也是一种奢侈。</description>
     </item>
     
     <item>
       <title>About</title>
-      <link>https://desperado.github.io/about/</link>
+      <link>https://scopor.github.io/about/</link>
       <pubDate>Wed, 12 Feb 2020 23:24:31 +0800</pubDate>
       
-      <guid>https://desperado.github.io/about/</guid>
+      <guid>https://scopor.github.io/about/</guid>
       <description>About me 生于废都 学于彭城 先后作于花城、夜郎、临安，止于废都 About site 庚子年初，疫情肆虐，闲来无事，遂成此站</description>
     </item>
     
