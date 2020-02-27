@@ -13,7 +13,7 @@
         content="Sanoon"/>
 
   
-  <meta name="description" content="I Love Teacher Jia, forever."/>
+  <meta name="description" content="公司的项目比较大，编译缓慢，耗时 2 个多小时。除了配置各种编译跳过选项后，也需要 1 个小时左右的时间. maven clean install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -Dcheckstyle.skip=true 在翻阅 Maven 命令时，发现 Maven 3.0 以上的版本是支持多线程编译的，使用 -T 的命令可以指定多线程的数量. 具"/>
   
 
   
@@ -22,13 +22,11 @@
   
 
   
-  <link rel="canonical" href="https://scopor.github.io/posts/"/>
+  <link rel="canonical" href="https://scopor.github.io/posts/maven/"/>
 
   
-  <link rel="alternate" type="application/rss&#43;xml" href="https://scopor.github.io/posts/index.xml">
-  
 
-  <title>Posts &middot; Sanoon</title>
+  <title>Maven 多线程编译 &middot; Sanoon</title>
 
   <link rel="shortcut icon" href="https://scopor.github.io/images/favicon.ico"/>
   <link rel="stylesheet" href="https://scopor.github.io/css/animate.min.css"/>
@@ -106,36 +104,37 @@
 </div>
 
   <div class="content">
-    <div class="list_with_title">
-      
-      <div class="listing_title">2020</div>
-      <div class="listing">
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/maven/">Maven 多线程编译</a>
-            <div class="post_time"><span class="date">02-27</span></div>
-          </div>
+    <div class="post_page">
+      <div class="post animated fadeInDown">
+        <div class="post_title post_detail_title">
+          <h2><a href='/posts/maven/'>Maven 多线程编译</a></h2>
+          <span class="date">2020.02.27</span>
         </div>
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/%E9%85%B8%E6%B1%A4%E9%9D%A2/">酸汤面</a>
-            <div class="post_time"><span class="date">02-22</span></div>
+        <div class="post_content markdown"><p>公司的项目比较大，编译缓慢，耗时 2 个多小时。除了配置各种编译跳过选项后，也需要 1 个小时左右的时间.</p>
+<pre><code>maven clean install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -Dcheckstyle.skip=true
+</code></pre><p>在翻阅 Maven 命令时，发现 Maven 3.0 以上的版本是支持多线程编译的，使用 -T 的命令可以指定多线程的数量. 具体命令如下：</p>
+<pre><code>maven clean install -T 1C -Dmaven.compile.fork=true
+</code></pre><p>1C 是指 1 倍核心数的线程数量，如果你的电脑是 4 核 8 线程，可以配置为 2C .
+多线程编译后该项目编译时间缩短为 15 分钟. 也可以直接指定线程数量, 如 -T <code>4</code>.</p>
+</div>
+        <div class="post_footer">
+          
+          <div class="meta">
+            <div class="info">
+              <span class="field tags">
+                <i class="remixicon-stack-line"></i>
+                
+                <a href="https://scopor.github.io/tags/maven/">maven</a>
+                
+              </span>
+            </div>
           </div>
+          
         </div>
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/%E5%8D%8A%E6%97%A5%E9%97%B2/">半日闲</a>
-            <div class="post_time"><span class="date">02-15</span></div>
-          </div>
-        </div>
-        
       </div>
       
+      
     </div>
-    <div class="pagination"></div>
   </div>
   <a id="back_to_top" href="#" class="back_to_top"><span>△</span></a>
 </div>

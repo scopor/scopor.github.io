@@ -6,10 +6,19 @@
     <description>Recent content on Sanoon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 22 Feb 2020 10:54:39 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 27 Feb 2020 21:29:32 +0800</lastBuildDate>
     
 	<atom:link href="https://scopor.github.io/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Maven 多线程编译</title>
+      <link>https://scopor.github.io/posts/maven/</link>
+      <pubDate>Thu, 27 Feb 2020 21:29:32 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/posts/maven/</guid>
+      <description>公司的项目比较大，编译缓慢，耗时 2 个多小时。除了配置各种编译跳过选项后，也需要 1 个小时左右的时间. maven clean install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -Dcheckstyle.skip=true 在翻阅 Maven 命令时，发现 Maven 3.0 以上的版本是支持多线程编译的，使用 -T 的命令可以指定多线程的数量. 具</description>
+    </item>
     
     <item>
       <title>酸汤面</title>
@@ -21,11 +30,11 @@
     </item>
     
     <item>
-      <title>天黑</title>
-      <link>https://scopor.github.io/posts/%E5%A4%A9%E9%BB%91/</link>
+      <title>半日闲</title>
+      <link>https://scopor.github.io/posts/%E5%8D%8A%E6%97%A5%E9%97%B2/</link>
       <pubDate>Sat, 15 Feb 2020 23:55:21 +0800</pubDate>
       
-      <guid>https://scopor.github.io/posts/%E5%A4%A9%E9%BB%91/</guid>
+      <guid>https://scopor.github.io/posts/%E5%8D%8A%E6%97%A5%E9%97%B2/</guid>
       <description>由于众所周知的原因，在家快憋疯的贾老师和我趁着周末 全副武装 的驱车到县郊外散心，偶然摄得此景。 天气也是给力的紧，烦闷的情绪也就去了大半，贾老师也不时的笑笑。 想来此时能看到这悠悠蓝天，也是一种奢侈。</description>
     </item>
     

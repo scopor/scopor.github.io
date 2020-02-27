@@ -3,12 +3,32 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://scopor.github.io/tags/maven/</loc>
+    <lastmod>2020-02-27T21:29:32+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://scopor.github.io/posts/maven/</loc>
+    <lastmod>2020-02-27T21:29:32+08:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://scopor.github.io/posts/</loc>
-    <lastmod>2020-02-22T10:54:39+08:00</lastmod>
+    <lastmod>2020-02-27T21:29:32+08:00</lastmod>
   </url>
   
   <url>
     <loc>https://scopor.github.io/</loc>
+    <lastmod>2020-02-27T21:29:32+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://scopor.github.io/tags/</loc>
+    <lastmod>2020-02-27T21:29:32+08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://scopor.github.io/tags/%E7%BE%8E%E9%A3%9F/</loc>
     <lastmod>2020-02-22T10:54:39+08:00</lastmod>
   </url>
   
@@ -18,12 +38,7 @@
   </url>
   
   <url>
-    <loc>https://scopor.github.io/tags/</loc>
-    <lastmod>2020-02-15T23:55:21+08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://scopor.github.io/posts/%E5%A4%A9%E9%BB%91/</loc>
+    <loc>https://scopor.github.io/posts/%E5%8D%8A%E6%97%A5%E9%97%B2/</loc>
     <lastmod>2020-02-15T23:55:21+08:00</lastmod>
   </url>
   

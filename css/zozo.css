@@ -21,6 +21,11 @@ p {
   margin: 0;
 }
 
+
+img {
+  margin-top: 10px;
+}
+
 a {
   text-decoration: none;
 }

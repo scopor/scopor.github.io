@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>maven on Sanoon</title>
+    <link>https://scopor.github.io/tags/maven/</link>
+    <description>Recent content in maven on Sanoon</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 27 Feb 2020 21:29:32 +0800</lastBuildDate>
+    
+	<atom:link href="https://scopor.github.io/tags/maven/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Maven 多线程编译</title>
+      <link>https://scopor.github.io/posts/maven/</link>
+      <pubDate>Thu, 27 Feb 2020 21:29:32 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/posts/maven/</guid>
+      <description>公司的项目比较大，编译缓慢，耗时 2 个多小时。除了配置各种编译跳过选项后，也需要 1 个小时左右的时间. maven clean install -Dmaven.test.skip=true -Dmaven.javadoc.skip=true -Dcheckstyle.skip=true 在翻阅 Maven 命令时，发现 Maven 3.0 以上的版本是支持多线程编译的，使用 -T 的命令可以指定多线程的数量. 具</description>
+    </item>
+    
+  </channel>
+</rss>
