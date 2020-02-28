@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>图床 on Sanoon</title>
+    <link>https://scopor.github.io/tags/%E5%9B%BE%E5%BA%8A/</link>
+    <description>Recent content in 图床 on Sanoon</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 28 Feb 2020 23:13:02 +0800</lastBuildDate>
+    
+	<atom:link href="https://scopor.github.io/tags/%E5%9B%BE%E5%BA%8A/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>博客图床</title>
+      <link>https://scopor.github.io/posts/%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/</link>
+      <pubDate>Fri, 28 Feb 2020 23:13:02 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/posts/%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/</guid>
+      <description>博客图片一直存储在 Github 上，国内访问一直很慢，因此需要寻找合适的图床。在看了国内七牛、又拍云、贴图库等存储库之后，终因为备案、限量等各种原因，在快要放弃的时候发现了 jsDelivr 这个项目. 该项目旨在帮助大家使用 Github 作为</description>
+    </item>
+    
+  </channel>
+</rss>

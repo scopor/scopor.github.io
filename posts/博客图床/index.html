@@ -13,7 +13,7 @@
         content="Sanoon"/>
 
   
-  <meta name="description" content="由于众所周知的原因，在家快憋疯的贾老师和我趁着周末 全副武装 的驱车到县郊外散心，偶然摄得此景。 天气也是给力的紧，烦闷的情绪也就去了大半，贾老师也不时的笑笑。 想来此时能看到这悠悠蓝天，也是一种奢侈。"/>
+  <meta name="description" content="博客图片一直存储在 Github 上，国内访问一直很慢，因此需要寻找合适的图床。在看了国内七牛、又拍云、贴图库等存储库之后，终因为备案、限量等各种原因，在快要放弃的时候发现了 jsDelivr 这个项目. 该项目旨在帮助大家使用 Github 作为"/>
   
 
   
@@ -22,11 +22,11 @@
   
 
   
-  <link rel="canonical" href="https://scopor.github.io/posts/%E5%8D%8A%E6%97%A5%E9%97%B2/"/>
+  <link rel="canonical" href="https://scopor.github.io/posts/%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/"/>
 
   
 
-  <title>半日闲 &middot; Sanoon</title>
+  <title>博客图床 &middot; Sanoon</title>
 
   <link rel="shortcut icon" href="https://scopor.github.io/images/favicon.ico"/>
   <link rel="stylesheet" href="https://scopor.github.io/css/animate.min.css"/>
@@ -107,13 +107,22 @@
     <div class="post_page">
       <div class="post animated fadeInDown">
         <div class="post_title post_detail_title">
-          <h2><a href='/posts/%E5%8D%8A%E6%97%A5%E9%97%B2/'>半日闲</a></h2>
-          <span class="date">2020.02.15</span>
+          <h2><a href='/posts/%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/'>博客图床</a></h2>
+          <span class="date">2020.02.28</span>
         </div>
-        <div class="post_content markdown"><p>由于众所周知的原因，在家快憋疯的贾老师和我趁着周末 <code>全副武装</code> 的驱车到县郊外散心，偶然摄得此景。</p>
-<p>天气也是给力的紧，烦闷的情绪也就去了大半，贾老师也不时的笑笑。</p>
-<p>想来此时能看到这悠悠蓝天，也是一种奢侈。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/scopor/cdn@1.0/dianchanglu.jpeg" alt="路灯"></p>
+        <div class="post_content markdown"><p>博客图片一直存储在 Github 上，国内访问一直很慢，因此需要寻找合适的图床。在看了国内七牛、又拍云、贴图库等存储库之后，终因为备案、限量等各种原因，在快要放弃的时候发现了 <a href="https://www.jsdelivr.com/">jsDelivr</a> 这个项目.</p>
+<p>该项目旨在帮助大家使用 Github 作为静态文件的存储库，提供 CDN 访问支持，以下为本博客使用该项目更换图床的记录.</p>
+<h2 id="建立静态文件库">建立静态文件库</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/scopor/cdn@1.0.1/new-cdn.png" alt="建立 Github 静态库"></p>
+<h2 id="git-提交静态文件">Git 提交静态文件</h2>
+<pre><code>git add .
+git commit -m &quot;add pictures&quot;
+git push origin master
+</code></pre><h2 id="发布-release-版本">发布 release 版本</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/scopor/cdn@1.0.1/release.png" alt="建立 Github 静态库"></p>
+<h2 id="访问-cdn-库静态资源">访问 cdn 库静态资源</h2>
+<p><img src="https://cdn.jsdelivr.net/gh/scopor/cdn@1.0.1/github-cdn.png" alt="访问 Github 静态库"></p>
+<p>经过 cdn 加持，图片访问速度确实快了许多.</p>
 </div>
         <div class="post_footer">
           
@@ -122,7 +131,7 @@
               <span class="field tags">
                 <i class="remixicon-stack-line"></i>
                 
-                <a href="https://scopor.github.io/tags/%E9%97%B2%E6%91%84/">闲摄</a>
+                <a href="https://scopor.github.io/tags/%E5%9B%BE%E5%BA%8A/">图床</a>
                 
               </span>
             </div>
