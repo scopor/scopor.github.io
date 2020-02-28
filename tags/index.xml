@@ -6,10 +6,19 @@
     <description>Recent content in Tags on Sanoon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 27 Feb 2020 21:29:32 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 28 Feb 2020 21:38:27 +0800</lastBuildDate>
     
 	<atom:link href="https://scopor.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>IDEA</title>
+      <link>https://scopor.github.io/tags/idea/</link>
+      <pubDate>Fri, 28 Feb 2020 21:38:27 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/tags/idea/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>maven</title>
