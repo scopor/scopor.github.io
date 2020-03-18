@@ -121,9 +121,9 @@ jstat -gcold PID
 </code></pre><h2 id="jstack-查看线程信息">jstack: 查看线程信息</h2>
 <pre><code>jstack PID
 </code></pre><h2 id="jmap-查看内存状态">jmap: 查看内存状态</h2>
-<pre><code class="language-angular2html" data-lang="angular2html"># 导出到文件中，需要使用其它工具打开
+<pre><code># 导出到文件中，需要使用其它工具打开  
 jmap -dump:file=file PID
-# 直接在控制台查看
+# 直接在控制台查看  
 jmap -heap PID
 </code></pre><p><img src="https://cdn.jsdelivr.net/gh/scopor/cdn@1.0.5/20200318235218.png" alt="heap信息"></p>
 <h2 id="jinfo-查看进程信息">jinfo: 查看进程信息</h2>
