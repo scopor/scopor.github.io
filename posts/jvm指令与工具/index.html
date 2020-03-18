@@ -13,7 +13,7 @@
         content="Sanoon"/>
 
   
-  <meta name="description" content="jps: 查看 Java 进程列表 jps jstat: 查看 gc 信息 jstat -gcutil PID 毫秒数 jstat -gc PID 毫秒数 jstat -gcnew PID jstat -gcold PID jstack: 查看线程信息 jstack PID jmap: 查看内存状态 # 导出到文件中，需要使用其它工具打开 jmap -dump:file=file PID # 直接在控制台查看 jmap -heap PID jinfo: 查看进程信息 jinfo PID 内存溢出时自动导出"/>
+  <meta name="description" content="查看 Java 进程列表: jps jps 查看 gc 信息: jstat jstat -gcutil PID 毫秒数 jstat -gc PID 毫秒数 jstat -gcnew PID jstat -gcold PID 查看线程信息: jstack jstack PID 查看内存状态: jmap # 导出到文件中，需要使用其它工具打开 jmap -dump:file=file PID # 直接在控制台查看 jmap -heap PID 查看进程扩展参数信息：jin"/>
   
 
   
@@ -110,26 +110,28 @@
           <h2><a href='/posts/jvm%E6%8C%87%E4%BB%A4%E4%B8%8E%E5%B7%A5%E5%85%B7/'>JVM 指令与工具</a></h2>
           <span class="date">2020.03.18</span>
         </div>
-        <div class="post_content markdown"><h2 id="jps-查看-java-进程列表">jps: 查看 Java 进程列表</h2>
+        <div class="post_content markdown"><h2 id="查看-java-进程列表-jps">查看 Java 进程列表: jps</h2>
 <pre><code>jps
-</code></pre><h2 id="jstat-查看-gc-信息">jstat: 查看 gc 信息</h2>
+</code></pre><h2 id="查看-gc-信息-jstat">查看 gc 信息: jstat</h2>
 <pre><code>jstat -gcutil PID 毫秒数
 </code></pre><p><img src="https://cdn.jsdelivr.net/gh/scopor/cdn@1.0.5/20200318234128.png" alt="GC信息"></p>
 <pre><code>jstat -gc PID 毫秒数
 jstat -gcnew PID
 jstat -gcold PID
-</code></pre><h2 id="jstack-查看线程信息">jstack: 查看线程信息</h2>
+</code></pre><h2 id="查看线程信息-jstack">查看线程信息: jstack</h2>
 <pre><code>jstack PID
-</code></pre><h2 id="jmap-查看内存状态">jmap: 查看内存状态</h2>
+</code></pre><h2 id="查看内存状态-jmap">查看内存状态: jmap</h2>
 <pre><code># 导出到文件中，需要使用其它工具打开  
 jmap -dump:file=file PID
 # 直接在控制台查看  
 jmap -heap PID
 </code></pre><p><img src="https://cdn.jsdelivr.net/gh/scopor/cdn@1.0.5/20200318235218.png" alt="heap信息"></p>
-<h2 id="jinfo-查看进程信息">jinfo: 查看进程信息</h2>
+<h2 id="查看进程扩展参数信息jinfo">查看进程扩展参数信息：jinfo</h2>
 <pre><code>jinfo PID
 </code></pre><h2 id="内存溢出时自动导出内存信息">内存溢出时自动导出内存信息</h2>
-<pre><code>XX:+HeapDumpOnOutOfMemoryError
+<pre><code>-XX:+HeapDumpOnOutOfMemoryError
+</code></pre><h2 id="打印-gc-日志-使用-gceasy1-在线工具导入可分析">打印 GC 日志, 使用 <a href="https://www.gceasy.io/">GCeasy</a> 在线工具导入可分析</h2>
+<pre><code>-XX:+PrintGCDetails -XX:+PrintGCTimeStamps -XX:+PrintGCDateStamps -Xloggc:./gc.log
 </code></pre></div>
         <div class="post_footer">
           
