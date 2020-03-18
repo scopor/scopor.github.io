@@ -6,10 +6,19 @@
     <description>Recent content in maven on Sanoon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 27 Feb 2020 21:29:32 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 18 Mar 2020 21:58:33 +0800</lastBuildDate>
     
 	<atom:link href="https://scopor.github.io/tags/maven/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Maven 跳过某个子 Module 的构建</title>
+      <link>https://scopor.github.io/posts/maven%E8%B7%B3%E8%BF%87%E6%9F%90%E4%B8%AA%E5%AD%90module%E7%9A%84%E6%9E%84%E5%BB%BA/</link>
+      <pubDate>Wed, 18 Mar 2020 21:58:33 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/posts/maven%E8%B7%B3%E8%BF%87%E6%9F%90%E4%B8%AA%E5%AD%90module%E7%9A%84%E6%9E%84%E5%BB%BA/</guid>
+      <description>当项目中出现某个稳定的模块，不需要每次编译的时候重复去构建它，我们可以使用如下的命令去跳过它 mvn -pl &#39;!父Module/子Module&#39; clean install 假如你使用的是 IDEA 插件 Maven Helper，那需要去掉引号 mvn -pl !父Mod</description>
+    </item>
     
     <item>
       <title>Maven 多线程编译</title>

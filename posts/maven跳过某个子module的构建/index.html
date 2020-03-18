@@ -13,7 +13,7 @@
         content="Sanoon"/>
 
   
-  <meta name="description" content="I Love Teacher Jia, forever."/>
+  <meta name="description" content="当项目中出现某个稳定的模块，不需要每次编译的时候重复去构建它，我们可以使用如下的命令去跳过它 mvn -pl &#39;!父Module/子Module&#39; clean install 假如你使用的是 IDEA 插件 Maven Helper，那需要去掉引号 mvn -pl !父Mod"/>
   
 
   
@@ -22,13 +22,11 @@
   
 
   
-  <link rel="canonical" href="https://scopor.github.io/tags/maven/"/>
+  <link rel="canonical" href="https://scopor.github.io/posts/maven%E8%B7%B3%E8%BF%87%E6%9F%90%E4%B8%AA%E5%AD%90module%E7%9A%84%E6%9E%84%E5%BB%BA/"/>
 
   
-  <link rel="alternate" type="application/rss&#43;xml" href="https://scopor.github.io/tags/maven/index.xml">
-  
 
-  <title>maven &middot; Sanoon</title>
+  <title>Maven 跳过某个子 Module 的构建 &middot; Sanoon</title>
 
   <link rel="shortcut icon" href="https://scopor.github.io/images/favicon.ico"/>
   <link rel="stylesheet" href="https://scopor.github.io/css/animate.min.css"/>
@@ -106,29 +104,38 @@
 </div>
 
   <div class="content">
-    <div class="list_with_title">
-      
-      <div class="listing_title">2020</div>
-      <div class="listing">
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/maven%E8%B7%B3%E8%BF%87%E6%9F%90%E4%B8%AA%E5%AD%90module%E7%9A%84%E6%9E%84%E5%BB%BA/">Maven 跳过某个子 Module 的构建</a>
-            <div class="post_time"><span class="date">03-18</span></div>
-          </div>
+    <div class="post_page">
+      <div class="post animated fadeInDown">
+        <div class="post_title post_detail_title">
+          <h2><a href='/posts/maven%E8%B7%B3%E8%BF%87%E6%9F%90%E4%B8%AA%E5%AD%90module%E7%9A%84%E6%9E%84%E5%BB%BA/'>Maven 跳过某个子 Module 的构建</a></h2>
+          <span class="date">2020.03.18</span>
         </div>
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/maven/">Maven 多线程编译</a>
-            <div class="post_time"><span class="date">02-27</span></div>
+        <div class="post_content markdown"><p>当项目中出现某个稳定的模块，不需要每次编译的时候重复去构建它，我们可以使用如下的命令去跳过它</p>
+<pre><code>mvn -pl '!父Module/子Module' clean install
+</code></pre><p>假如你使用的是 IDEA 插件 Maven Helper，那需要去掉引号</p>
+<pre><code>mvn -pl !父Module/子Module clean install
+</code></pre><p>如果有多个子 Module 需要跳过，直接逗号隔开即可</p>
+<pre><code>mvn -pl '!父Module/子Module1,!父Module/子Module2' clean install
+</code></pre><p><code>注</code>: -pl 参数需要 Maven 3.2.1 以上版本</p>
+</div>
+        <div class="post_footer">
+          
+          <div class="meta">
+            <div class="info">
+              <span class="field tags">
+                <i class="remixicon-stack-line"></i>
+                
+                <a href="https://scopor.github.io/tags/maven/">Maven</a>
+                
+              </span>
+            </div>
           </div>
+          
         </div>
-        
       </div>
       
+      
     </div>
-    <div class="pagination"></div>
   </div>
   <a id="back_to_top" href="#" class="back_to_top"><span>△</span></a>
 </div>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Docker on Sanoon</title>
+    <link>https://scopor.github.io/tags/docker/</link>
+    <description>Recent content in Docker on Sanoon</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 06 Mar 2020 20:27:56 +0800</lastBuildDate>
+    
+	<atom:link href="https://scopor.github.io/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Docker 使用指南</title>
+      <link>https://scopor.github.io/posts/docker%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</link>
+      <pubDate>Fri, 06 Mar 2020 20:27:56 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/posts/docker%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</guid>
+      <description>查看镜像列表 docker images docker images -a 搜索镜像 docker search java 下载镜像 docker pull java 运行容器 docker run `镜像ID` 停止容器 docker stop `容器ID` # 批量停止容器 docker stop `docker ps -a -q` 重启容器 docker restart `容器ID` 启动容器 docker start `容器ID` 删除容器 docker rm -f `容器ID` #</description>
+    </item>
+    
+  </channel>
+</rss>
