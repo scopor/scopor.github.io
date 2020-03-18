@@ -13,7 +13,7 @@
         content="Sanoon"/>
 
   
-  <meta name="description" content="查看镜像列表 docker images docker images -a 搜索镜像 docker search java 下载镜像 docker pull java 运行容器 docker run 镜像ID 停止容器 docker stop 容器ID # 批量停止容器 docker stop `docker ps -a -q` 重启容器 docker restart 容器ID 启动容器 docker start 容器ID 删除容器 docker rm -f 容器ID # 批量删除容器 docker rm `docker ps"/>
+  <meta name="description" content="jps: 查看 Java 进程列表 jps jstat: 查看 gc 信息 jstat -gcutil PID 毫秒数 jstat -gc PID 毫秒数 jstat -gcnew PID jstat -gcold PID jstack: 查看线程信息 jstack PID jmap: 查看内存状态 # 导出到文件中，需要使用其它工具打开 jmap -dump:file=file PID # 直接在控制台查看 jmap -heap PID jinfo: 查看进程信息 jinfo PID 内存溢出时自动导出"/>
   
 
   
@@ -22,11 +22,11 @@
   
 
   
-  <link rel="canonical" href="https://scopor.github.io/posts/docker%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/"/>
+  <link rel="canonical" href="https://scopor.github.io/posts/jvm%E6%8C%87%E4%BB%A4%E4%B8%8E%E5%B7%A5%E5%85%B7/"/>
 
   
 
-  <title>Docker 使用指南 &middot; Sanoon</title>
+  <title>JVM 指令与工具 &middot; Sanoon</title>
 
   <link rel="shortcut icon" href="https://scopor.github.io/images/favicon.ico"/>
   <link rel="stylesheet" href="https://scopor.github.io/css/animate.min.css"/>
@@ -107,51 +107,29 @@
     <div class="post_page">
       <div class="post animated fadeInDown">
         <div class="post_title post_detail_title">
-          <h2><a href='/posts/docker%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/'>Docker 使用指南</a></h2>
-          <span class="date">2020.03.06</span>
+          <h2><a href='/posts/jvm%E6%8C%87%E4%BB%A4%E4%B8%8E%E5%B7%A5%E5%85%B7/'>JVM 指令与工具</a></h2>
+          <span class="date">2020.03.18</span>
         </div>
-        <div class="post_content markdown"><h2 id="查看镜像列表">查看镜像列表</h2>
-<pre><code>docker images
-docker images -a
-</code></pre><h2 id="搜索镜像">搜索镜像</h2>
-<pre><code>docker search java 
-</code></pre><h2 id="下载镜像">下载镜像</h2>
-<pre><code>docker pull java
-</code></pre><h2 id="运行容器">运行容器</h2>
-<pre><code>docker run 镜像ID
-</code></pre><h2 id="停止容器">停止容器</h2>
-<pre><code>docker stop 容器ID
-# 批量停止容器
-docker stop `docker ps -a -q`
-</code></pre><h2 id="重启容器">重启容器</h2>
-<pre><code>docker restart 容器ID
-</code></pre><h2 id="启动容器">启动容器</h2>
-<pre><code>docker start 容器ID
-</code></pre><h2 id="删除容器">删除容器</h2>
-<pre><code>docker rm -f 容器ID
-# 批量删除容器
-docker rm `docker ps -a -q`
-</code></pre><h2 id="查看容器列表">查看容器列表</h2>
-<pre><code># 运行中的容器
-docker ps
-# 所有容器，包括停止的
-docker ps -a
-</code></pre><h2 id="查看容器日志">查看容器日志</h2>
-<pre><code>docker logs 容器ID
-</code></pre><h2 id="进入容器">进入容器</h2>
-<pre><code>docker exec -it 容器ID /bin/bash
-docker exec -it 容器ID /bin/sh
-</code></pre><h2 id="查看容器配置">查看容器配置</h2>
-<pre><code>docker inspect 容器ID
-</code></pre><h2 id="查看容器占用资源的情况">查看容器占用资源的情况</h2>
-<pre><code># 默认每秒一次
-docker stats
-# 只查询当前的状态
-docker stats --no-stream
-</code></pre><h2 id="镜像导出">镜像导出</h2>
-<pre><code>docker save 镜像ID &gt; path/file
-</code></pre><h2 id="镜像导入">镜像导入</h2>
-<pre><code>docker load &lt; path/file
+        <div class="post_content markdown"><h2 id="jps-查看-java-进程列表">jps: 查看 Java 进程列表</h2>
+<pre><code>jps
+</code></pre><h2 id="jstat-查看-gc-信息">jstat: 查看 gc 信息</h2>
+<pre><code>jstat -gcutil PID 毫秒数
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/scopor/cdn@1.0.5/20200318234128.png" alt="GC信息"></p>
+<pre><code>jstat -gc PID 毫秒数
+jstat -gcnew PID
+jstat -gcold PID
+</code></pre><h2 id="jstack-查看线程信息">jstack: 查看线程信息</h2>
+<pre><code>jstack PID
+</code></pre><h2 id="jmap-查看内存状态">jmap: 查看内存状态</h2>
+<pre><code class="language-angular2html" data-lang="angular2html"># 导出到文件中，需要使用其它工具打开
+jmap -dump:file=file PID
+# 直接在控制台查看
+jmap -heap PID
+</code></pre><p><img src="https://cdn.jsdelivr.net/gh/scopor/cdn@1.0.5/20200318235218.png" alt="heap信息"></p>
+<h2 id="jinfo-查看进程信息">jinfo: 查看进程信息</h2>
+<pre><code>jinfo PID
+</code></pre><h2 id="内存溢出时自动导出内存信息">内存溢出时自动导出内存信息</h2>
+<pre><code>XX:+HeapDumpOnOutOfMemoryError
 </code></pre></div>
         <div class="post_footer">
           
@@ -160,7 +138,19 @@ docker stats --no-stream
               <span class="field tags">
                 <i class="remixicon-stack-line"></i>
                 
-                <a href="https://scopor.github.io/tags/docker/">Docker</a>
+                <a href="https://scopor.github.io/tags/jstack/">jstack</a>
+                
+                <a href="https://scopor.github.io/tags/jinfo/">jinfo</a>
+                
+                <a href="https://scopor.github.io/tags/jmap/">jmap</a>
+                
+                <a href="https://scopor.github.io/tags/jps/">jps</a>
+                
+                <a href="https://scopor.github.io/tags/java/">Java</a>
+                
+                <a href="https://scopor.github.io/tags/jstat/">jstat</a>
+                
+                <a href="https://scopor.github.io/tags/jvm/">jvm</a>
                 
               </span>
             </div>
