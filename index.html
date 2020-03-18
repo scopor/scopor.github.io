@@ -117,7 +117,7 @@
   
   <div class="list">
     <div class="post_content markdown">
-      <p>查看 Java 进程列表: jps jps 查看 gc 信息: jstat jstat -gcutil PID 毫秒数 jstat -gc PID 毫秒数 jstat -gcnew PID jstat -gcold PID 查看线程信息: jstack jstack PID 查看内存状态: jmap # 导出到文件中，需要使用其它工具打开 jmap -dump:file=file PID # 直接在控制台查看 jmap -heap PID 查看进程扩展参数信息：jin......</p>
+      <p>本文主要介绍 JVM 相关指令信息内容，包含 jps、jstat、jstack、jmap 以及 jinfo 信息，同时包含相关调优参数、导出内存信息、GC 信息等。......</p>
     </div>
   </div>
   
@@ -160,7 +160,7 @@
   
   <div class="list">
     <div class="post_content markdown">
-      <p>当项目中出现某个稳定的模块，不需要每次编译的时候重复去构建它，我们可以使用如下的命令去跳过它 mvn -pl '!父Module/子Module' clean install 假如你使用的是 IDEA 插件 Maven Helper，那需要去掉引号 mvn -pl !父Mod......</p>
+      <p>当项目中出现某个稳定的模块，不需要每次编译的时候重复去构建它，我们可以使用如下的命令去跳过它.......</p>
     </div>
   </div>
   
@@ -191,7 +191,7 @@
   
   <div class="list">
     <div class="post_content markdown">
-      <p>查看镜像列表 docker images docker images -a 搜索镜像 docker search java 下载镜像 docker pull java 运行容器 docker run 镜像ID 停止容器 docker stop 容器ID # 批量停止容器 docker stop `docker ps -a -q` 重启容器 docker restart 容器ID 启动容器 docker start 容器ID 删除容器 docker rm -f 容器ID # 批量删除容器 docker rm `docker ps......</p>
+      <p>Docker 是一个开源的应用容器引擎，基于 Go 语言 并遵从 Apache2.0 协议开源。Docker 可以让开发者打包他们的应用以及依赖包到一个轻量级、可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口（类似 iPhone 的 app）, 更重要的是容器性能开销极低。......</p>
     </div>
   </div>
   
@@ -222,7 +222,7 @@
   
   <div class="list">
     <div class="post_content markdown">
-      <p>在写博客的过程中，大家避免不了要使用截图。在 Markdown 中使用该图片，必须要有链接地址。 保存截图的过程比较麻烦，想起之前看过 Mac 上有款名为 PicGo 的软件可以解决这个问题。 Mac 安装 PicGo 执行以下命令 brew cask install picgo 创建 Github 图片库 参见 生成......</p>
+      <p>在写博客的过程中，大家避免不了要使用截图。在 Markdown 中使用该图片，必须要有链接地址。 保存截图的过程比较麻烦，想起之前看过 Mac 上有款名为 PicGo 的软件可以解决这个问题。......</p>
     </div>
   </div>
   
