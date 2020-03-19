@@ -6,10 +6,19 @@
     <description>Recent content in Tags on Sanoon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 18 Mar 2020 23:32:34 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 19 Mar 2020 22:33:04 +0800</lastBuildDate>
     
 	<atom:link href="https://scopor.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Yarn</title>
+      <link>https://scopor.github.io/tags/yarn/</link>
+      <pubDate>Thu, 19 Mar 2020 22:33:04 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/tags/yarn/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Java</title>
