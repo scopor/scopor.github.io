@@ -13,7 +13,7 @@
         content="Sanoon"/>
 
   
-  <meta name="description" content="I Love Teacher Jia, forever."/>
+  <meta name="description" content="最近使用 SpringBoot 快速落地了一个样机的 demo，一旦某个服务挂掉之后，整个服务将不可用，思考之余，决定学习下现下流行的微服务框架 Spring Cloud。"/>
   
 
   
@@ -22,13 +22,11 @@
   
 
   
-  <link rel="canonical" href="https://scopor.github.io/posts/"/>
+  <link rel="canonical" href="https://scopor.github.io/posts/springcloud%E4%BB%8B%E7%BB%8D/"/>
 
   
-  <link rel="alternate" type="application/rss&#43;xml" href="https://scopor.github.io/posts/index.xml">
-  
 
-  <title>Posts &middot; Sanoon</title>
+  <title>Spring Cloud 介绍 &middot; Sanoon</title>
 
   <link rel="shortcut icon" href="https://scopor.github.io/images/favicon.ico"/>
   <link rel="stylesheet" href="https://scopor.github.io/css/animate.min.css"/>
@@ -106,92 +104,109 @@
 </div>
 
   <div class="content">
-    <div class="list_with_title">
-      
-      <div class="listing_title">2020</div>
-      <div class="listing">
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/springcloud%E4%BB%8B%E7%BB%8D/">Spring Cloud 介绍</a>
-            <div class="post_time"><span class="date">03-20</span></div>
-          </div>
+    <div class="post_page">
+      <div class="post animated fadeInDown">
+        <div class="post_title post_detail_title">
+          <h2><a href='/posts/springcloud%E4%BB%8B%E7%BB%8D/'>Spring Cloud 介绍</a></h2>
+          <span class="date">2020.03.20</span>
         </div>
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/yarn%E9%85%8D%E7%BD%AE/">Yarn 配置</a>
-            <div class="post_time"><span class="date">03-19</span></div>
+        <div class="post_content markdown"><p>最近使用 SpringBoot 快速落地了一个样机的 demo，一旦某个服务挂掉之后，整个服务将不可用，思考之余，决定学习下现下流行的微服务框架 Spring Cloud。</p>
+<h2 id="spring-cloud-概览">Spring Cloud 概览</h2>
+<p>Spring Cloud 为开发人员提供了一系列用于构建分布式系统的常用的组件，例如配置管理、服务发现、断路器、智能路由、消息总线、一次性令牌、全局锁、选举、集群、数据监控等。<br>
+Spring Cloud 基于 Springboot 默认大于配置的理念，快速实现微服务的开发，而 Spring Cloud 则专注于全局的服务治理。</p>
+<h2 id="核心组件">核心组件</h2>
+<ul>
+<li>Spring Cloud Config 配置中心</li>
+<li>Spring Cloud Netflix
+<ul>
+<li>Eureka 服务注册发现</li>
+<li>Hystrix 熔断器</li>
+<li>Zuul 第一代网关</li>
+<li>Feign 远程调用</li>
+<li>Archaius 外部配置</li>
+<li>Hystrix-dashboard 实时监控</li>
+</ul>
+</li>
+<li>Spring Cloud Bus 消息总线</li>
+<li>Spring Cloud Cluster 集群</li>
+<li>Spring Cloud Consul 注册中心</li>
+<li>Spring Cloud Security 安全</li>
+<li>Spring Cloud Task 调度</li>
+<li>Spring Boot Cloud CLI 命令行工具</li>
+<li>Spring Cloud Gateway 第二代网关</li>
+</ul>
+<h2 id="spring-cloud-vs-dubbo">Spring Cloud vs Dubbo</h2>
+<p>在国内的开发者经常会把 Spring Cloud 和 Dubbo 做比较，从严格上来讲，Dubbo 是属于 SOA 架构，是专注于 RPC 的微服务。</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>通信方式</th>
+<th align="center">注册中心</th>
+<th align="right">负载均衡</th>
+<th align="right">容错机制</th>
+<th align="right">熔断机制</th>
+<th align="right">配置中心</th>
+<th align="right">网关</th>
+<th align="right">服务监控</th>
+<th align="right">链路监控</th>
+<th align="right">国际化</th>
+<th align="right">社区</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Spring cloud</td>
+<td>http</td>
+<td align="center">Eureka</td>
+<td align="right">Ribbon</td>
+<td align="right">支持</td>
+<td align="right">Hystrix</td>
+<td align="right">Spring Cloud Config</td>
+<td align="right">Zuul，Gateway</td>
+<td align="right">Hystrix，Turbine</td>
+<td align="right">Sleuth，Zipkin</td>
+<td align="right">多语言</td>
+<td align="right">Spring</td>
+</tr>
+<tr>
+<td>Dubbo</td>
+<td>RPC</td>
+<td align="center">Zk,Nacos</td>
+<td align="right">客户端负载</td>
+<td align="right">支持</td>
+<td align="right">无</td>
+<td align="right">Nacos</td>
+<td align="right">无</td>
+<td align="right">Dubbo，Monitor</td>
+<td align="right">无</td>
+<td align="right">Java</td>
+<td align="right">阿里</td>
+</tr>
+</tbody>
+</table>
+<h2 id="heading"></h2>
+</div>
+        <div class="post_footer">
+          
+          <div class="meta">
+            <div class="info">
+              <span class="field tags">
+                <i class="remixicon-stack-line"></i>
+                
+                <a href="https://scopor.github.io/tags/spring-cloud/">Spring Cloud</a>
+                
+                <a href="https://scopor.github.io/tags/springboot/">SpringBoot</a>
+                
+              </span>
+            </div>
           </div>
+          
         </div>
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/jvm%E6%8C%87%E4%BB%A4%E4%B8%8E%E5%B7%A5%E5%85%B7/">JVM 指令与工具</a>
-            <div class="post_time"><span class="date">03-18</span></div>
-          </div>
-        </div>
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/maven%E8%B7%B3%E8%BF%87%E6%9F%90%E4%B8%AA%E5%AD%90module%E7%9A%84%E6%9E%84%E5%BB%BA/">Maven 跳过某个子 Module 的构建</a>
-            <div class="post_time"><span class="date">03-18</span></div>
-          </div>
-        </div>
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/docker%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/">Docker 使用指南</a>
-            <div class="post_time"><span class="date">03-06</span></div>
-          </div>
-        </div>
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/picgo%E9%85%8D%E7%BD%AEgithub/">PicGo 配置 Github 图床</a>
-            <div class="post_time"><span class="date">03-03</span></div>
-          </div>
-        </div>
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/%E5%8D%9A%E5%AE%A2%E5%9B%BE%E5%BA%8A/">博客图床</a>
-            <div class="post_time"><span class="date">02-28</span></div>
-          </div>
-        </div>
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/idea%E5%8A%A0%E8%BD%BD%E5%A4%A7%E6%96%87%E4%BB%B6/">IDEA 加载大文件</a>
-            <div class="post_time"><span class="date">02-28</span></div>
-          </div>
-        </div>
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/maven/">Maven 多线程编译</a>
-            <div class="post_time"><span class="date">02-27</span></div>
-          </div>
-        </div>
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/%E9%85%B8%E6%B1%A4%E9%9D%A2/">酸汤面</a>
-            <div class="post_time"><span class="date">02-22</span></div>
-          </div>
-        </div>
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/%E5%8D%8A%E6%97%A5%E9%97%B2/">半日闲</a>
-            <div class="post_time"><span class="date">02-15</span></div>
-          </div>
-        </div>
-        
       </div>
       
+      
     </div>
-    <div class="pagination"></div>
   </div>
   <a id="back_to_top" href="#" class="back_to_top"><span>△</span></a>
 </div>
