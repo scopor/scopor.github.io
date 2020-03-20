@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Chrome on Sanoon</title>
+    <link>https://scopor.github.io/tags/chrome/</link>
+    <description>Recent content in Chrome on Sanoon</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 20 Mar 2020 19:34:47 +0800</lastBuildDate>
+    
+	<atom:link href="https://scopor.github.io/tags/chrome/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Chrome非安全端口</title>
+      <link>https://scopor.github.io/posts/chrome%E9%9D%9E%E5%AE%89%E5%85%A8%E7%AB%AF%E5%8F%A3/</link>
+      <pubDate>Fri, 20 Mar 2020 19:34:47 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/posts/chrome%E9%9D%9E%E5%AE%89%E5%85%A8%E7%AB%AF%E5%8F%A3/</guid>
+      <description>今天在测试微服务的时候，我使用了 6000 端口，在启动后使用 chrome 测试，发现不能正常访问，错误信息为 ERR_UNSAFE_PORT 。切换到 IE 浏览器后页面正常。 查阅相关错误信息后，发现 Chrome 浏览器，对一些端口做了禁用，主要是一些相关协议的端口，列</description>
+    </item>
+    
+  </channel>
+</rss>

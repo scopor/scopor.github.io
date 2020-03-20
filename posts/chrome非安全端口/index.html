@@ -13,7 +13,7 @@
         content="Sanoon"/>
 
   
-  <meta name="description" content=""/>
+  <meta name="description" content="今天在测试微服务的时候，我使用了 6000 端口，在启动后使用 chrome 测试，发现不能正常访问，错误信息为 ERR_UNSAFE_PORT 。切换到 IE 浏览器后页面正常。"/>
   
 
   
@@ -110,8 +110,88 @@
           <h2><a href='/posts/chrome%E9%9D%9E%E5%AE%89%E5%85%A8%E7%AB%AF%E5%8F%A3/'>Chrome非安全端口</a></h2>
           <span class="date">2020.03.20</span>
         </div>
-        <div class="post_content markdown"></div>
+        <div class="post_content markdown"><p>今天在测试微服务的时候，我使用了 6000 端口，在启动后使用 chrome 测试，发现不能正常访问，错误信息为 ERR_UNSAFE_PORT 。切换到 IE 浏览器后页面正常。</p>
+<p>查阅相关错误信息后，发现 Chrome 浏览器，对一些端口做了禁用，主要是一些相关协议的端口，列表如下：</p>
+<pre><code>1,    // tcpmux  
+7,    // echo  
+9,    // discard  
+11,   // systat  
+13,   // daytime
+15,   // netstat
+17,   // qotd
+19,   // chargen
+20,   // ftp data
+21,   // ftp access
+22,   // ssh
+23,   // telnet
+25,   // smtp
+37,   // time
+42,   // name
+43,   // nicname
+53,   // domain
+77,   // priv-rjs
+79,   // finger
+87,   // ttylink
+95,   // supdup
+101,  // hostriame
+102,  // iso-tsap
+103,  // gppitnp
+104,  // acr-nema
+109,  // pop2
+110,  // pop3
+111,  // sunrpc
+113,  // auth
+115,  // sftp
+117,  // uucp-path
+119,  // nntp
+123,  // NTP
+135,  // loc-srv /epmap
+139,  // netbios
+143,  // imap2
+179,  // BGP
+389,  // ldap
+465,  // smtp+ssl
+512,  // print / exec
+513,  // login
+514,  // shell
+515,  // printer
+526,  // tempo
+530,  // courier
+531,  // chat
+532,  // netnews
+540,  // uucp
+556,  // remotefs
+563,  // nntp+ssl
+587,  // stmp?
+601,  // ??
+636,  // ldap+ssl
+993,  // ldap+ssl
+995,  // pop3+ssl
+2049, // nfs
+3659, // apple-sasl / PasswordServer
+4045, // lockd
+6000, // X11
+6665, // Alternate IRC [Apple addition]
+6666, // Alternate IRC [Apple addition]
+6667, // Standard IRC [Apple addition]
+6668, // Alternate IRC [Apple addition]
+6669, // Alternate IRC [Apple addition]
+</code></pre><p>如果一定要使用此类端口，可使用以下的方法：</p>
+<p>选中Google Chrome 快捷方式，右键属性，在”目标”对应文本框添加：</p>
+<pre><code>--explicitly-allowed-ports=6000,6666
+</code></pre></div>
         <div class="post_footer">
+          
+          <div class="meta">
+            <div class="info">
+              <span class="field tags">
+                <i class="remixicon-stack-line"></i>
+                
+                <a href="https://scopor.github.io/tags/chrome/">Chrome</a>
+                
+              </span>
+            </div>
+          </div>
           
         </div>
       </div>

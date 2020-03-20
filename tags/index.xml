@@ -30,6 +30,15 @@
     </item>
     
     <item>
+      <title>Chrome</title>
+      <link>https://scopor.github.io/tags/chrome/</link>
+      <pubDate>Fri, 20 Mar 2020 19:34:47 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/tags/chrome/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>SpringBoot</title>
       <link>https://scopor.github.io/tags/springboot/</link>
       <pubDate>Fri, 20 Mar 2020 00:00:12 +0800</pubDate>
@@ -111,7 +120,7 @@
     </item>
     
     <item>
-      <title>maven</title>
+      <title>Maven</title>
       <link>https://scopor.github.io/tags/maven/</link>
       <pubDate>Wed, 18 Mar 2020 21:58:33 +0800</pubDate>
       
