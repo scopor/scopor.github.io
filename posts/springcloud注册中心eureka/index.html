@@ -108,7 +108,7 @@
       <div class="post animated fadeInDown">
         <div class="post_title post_detail_title">
           <h2><a href='/posts/springcloud%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83eureka/'>Spring Cloud Eureka 注册中心</a></h2>
-          <span class="date">2020.03.20</span>
+          <span class="date">2020.03.21</span>
         </div>
         <div class="post_content markdown"><p>Eureka 是 Netflix 开源的服务注册中心，是Spring Cloud 的重要组成部分，完整的实现了<code>服务注册</code>和<code>服务发现</code>。<br>
 Eureka 将数据完全存储于内存中，对于注册的服务本身，需要维持心跳。<br>
@@ -133,7 +133,7 @@ Eureka 将数据完全存储于内存中，对于注册的服务本身，需要�
         &lt;artifactId&gt;spring-cloud-starter-netflix-eureka-server&lt;/artifactId&gt;
     &lt;/dependency&gt;
 &lt;/dependencies&gt;
-</code></pre><p><code>注意</code>: 其他依赖通过 maven dependencies 传递，此处只单独添加 Eureka 服务端依赖即可</p>
+</code></pre><p><code>注意</code>: 其他依赖通过 maven dependencies 传递，此处只单独添加 Eureka 服务端依赖</p>
 <ul>
 <li>编写服务启动类</li>
 </ul>
@@ -171,14 +171,14 @@ eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:${server
 <p><img src="https://cdn.jsdelivr.net/gh/scopor/cdn@1.0.6/20200320222958.png" alt="独立模式"></p>
 <h2 id="排坑">排坑</h2>
 <ul>
-<li>Eureka 本身既是注册中心，也是服务本身，在独立节点的时候需要防止对自身的注册，需要开启以下配置</li>
+<li>Eureka 本身既是注册中心，也是一个独立的服务，在独立模式下需要防止对自身的注册，开启以下配置</li>
 </ul>
 <pre><code># register-with-eureka 设置为 false，表示当前项目不要注册到注册中心上  
 eureka.client.register-with-eureka=false  
 # 表示是否从 Eureka Server 上获取注册信息  
 eureka.client.fetch-registry=false  
 </code></pre><ul>
-<li>独立模式启动后防止节点出现在 unavailable-replicas，需要保证以下 hostname 配置一致</li>
+<li>独立模式启动后，需要保证以下 hostname 配置一致，防止节点 hostname 不一导致管理节点不可用，出现在 unavailable-replicas</li>
 </ul>
 <pre><code># 实例名称
 eureka.instance.hostname=one
@@ -187,14 +187,14 @@ eureka.client.serviceUrl.defaultZone=http://${eureka.instance.hostname}:${server
 <h2 id="集群模式">集群模式</h2>
 <ul>
 <li>集群配置文件<br>
-集群模式，不需要改变启动类，只需要修改配置文件。本文在原 application.properties 的基础上新增以下三个文件.</li>
+集群模式，不需要改变启动类，只需要修改配置文件。本文在原 application.properties 的基础上新增修改以下三个文件.</li>
 </ul>
 <pre><code>application-one.properties
 application-three.properties
 application-two.properties
 </code></pre><p><code>注</code>: 此处文件命名遵循 application-xxx.properties 格式</p>
 <ul>
-<li>application-one.properties</li>
+<li>application-one.properties ，其他两个大同小异，换掉 profiles、hostname 及 defaultZone</li>
 </ul>
 <pre><code>spring.profiles=one
 # 设置端口号
@@ -210,7 +210,7 @@ eureka.client.register-with-eureka=true
 eureka.client.fetch-registry=true
 
 eureka.client.serviceUrl.defaultZone=http://two:5002/eureka/,http://three:5003/eureka/
-</code></pre><p><code>注</code>: 其他文件修改相应的 one two three 即可，记得需要同步在 hosts 文件中设置解析</p>
+</code></pre><p><code>注</code>: 记得需要同步在 hosts 文件中设置解析</p>
 <ul>
 <li>分别启动三个节点</li>
 </ul>
