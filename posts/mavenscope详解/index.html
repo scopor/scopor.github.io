@@ -13,7 +13,7 @@
         content="Sanoon"/>
 
   
-  <meta name="description" content="I Love Teacher Jia, forever."/>
+  <meta name="description" content="Maven Scope 包含 compile、test、runtime、provided、system、import。其中默认依赖配置项是 compile。那么这几个配置有什么区别，我们来详解一下。"/>
   
 
   
@@ -22,13 +22,11 @@
   
 
   
-  <link rel="canonical" href="https://scopor.github.io/tags/maven/"/>
+  <link rel="canonical" href="https://scopor.github.io/posts/mavenscope%E8%AF%A6%E8%A7%A3/"/>
 
   
-  <link rel="alternate" type="application/rss&#43;xml" href="https://scopor.github.io/tags/maven/index.xml">
-  
 
-  <title>Maven &middot; Sanoon</title>
+  <title>Maven Scope 详解 &middot; Sanoon</title>
 
   <link rel="shortcut icon" href="https://scopor.github.io/images/favicon.ico"/>
   <link rel="stylesheet" href="https://scopor.github.io/css/animate.min.css"/>
@@ -106,36 +104,56 @@
 </div>
 
   <div class="content">
-    <div class="list_with_title">
-      
-      <div class="listing_title">2020</div>
-      <div class="listing">
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/mavenscope%E8%AF%A6%E8%A7%A3/">Maven Scope 详解</a>
-            <div class="post_time"><span class="date">04-08</span></div>
-          </div>
+    <div class="post_page">
+      <div class="post animated fadeInDown">
+        <div class="post_title post_detail_title">
+          <h2><a href='/posts/mavenscope%E8%AF%A6%E8%A7%A3/'>Maven Scope 详解</a></h2>
+          <span class="date">2020.04.08</span>
         </div>
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/maven%E8%B7%B3%E8%BF%87%E6%9F%90%E4%B8%AA%E5%AD%90module%E7%9A%84%E6%9E%84%E5%BB%BA/">Maven 跳过某个子 Module 的构建</a>
-            <div class="post_time"><span class="date">03-18</span></div>
+        <div class="post_content markdown"><p>Maven Scope 包含 compile、test、runtime、provided、system、import。其中默认依赖配置项是 compile。那么这几个配置有什么区别，我们来详解一下。</p>
+<h2 id="compile">compile</h2>
+<blockquote>
+<p>不显示指定 Scope 时，作为默认选项。compile 表示被依赖的项目需要参与当前新项目的编译，测试，运行及打包。是较强的 scope 选项。</p>
+</blockquote>
+<h2 id="test">test</h2>
+<blockquote>
+<p>需要显示指定，test 表示被依赖的项目仅仅参与测试工作，包括测试代码的编译和执行。</p>
+</blockquote>
+<h2 id="runtime">runtime</h2>
+<blockquote>
+<p>需要显示指定，runtime 表示被依赖的项目不需要参与项目的编译，但需要参与测试和运行。相比较于 compile，跳过了编译阶段。通常需要和 optional 搭配使用，optional 为布尔值，例如 API 配置为 compile， impl 配置为 runtime，可以选用不同的具体实现。</p>
+</blockquote>
+<h2 id="provided">provided</h2>
+<blockquote>
+<p>需要显示指定，provided 表示被依赖的项目不需要被打包进去，参与编译、测试、运行等阶段。</p>
+</blockquote>
+<h2 id="system">system</h2>
+<blockquote>
+<p>需要显示指定，system 基本和 provided 一致，区别在于被依赖项不会从 maven 仓库拉取，而是从本地文件系统获取，需要配合 systemPath 属性使用。</p>
+</blockquote>
+<h2 id="import">import</h2>
+<blockquote>
+<p>一般只在 dependencyManagement 中使用，表示从其它的 pom 中导入 dependency 的配置。</p>
+</blockquote>
+</div>
+        <div class="post_footer">
+          
+          <div class="meta">
+            <div class="info">
+              <span class="field tags">
+                <i class="remixicon-stack-line"></i>
+                
+                <a href="https://scopor.github.io/tags/maven/">Maven</a>
+                
+              </span>
+            </div>
           </div>
+          
         </div>
-        
-        <div class="listing_item">
-          <div class="listing_post">
-            <a href="/posts/maven/">Maven 多线程编译</a>
-            <div class="post_time"><span class="date">02-27</span></div>
-          </div>
-        </div>
-        
       </div>
       
+      
     </div>
-    <div class="pagination"></div>
   </div>
   <a id="back_to_top" href="#" class="back_to_top"><span>△</span></a>
 </div>

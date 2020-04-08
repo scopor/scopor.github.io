@@ -6,10 +6,19 @@
     <description>Recent content in Maven on Sanoon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 18 Mar 2020 21:58:33 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 08 Apr 2020 22:27:56 +0800</lastBuildDate>
     
 	<atom:link href="https://scopor.github.io/tags/maven/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Maven Scope 详解</title>
+      <link>https://scopor.github.io/posts/mavenscope%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Wed, 08 Apr 2020 22:27:56 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/posts/mavenscope%E8%AF%A6%E8%A7%A3/</guid>
+      <description>Maven Scope 包含 compile、test、runtime、provided、system、import。其中默认依赖配置项是 compile。那么这几个配置有什么区别，我们来详解一下。 compile 不显示指定 Scope 时，作为默认</description>
+    </item>
     
     <item>
       <title>Maven 跳过某个子 Module 的构建</title>

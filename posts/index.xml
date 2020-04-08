@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Sanoon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Sat, 21 Mar 2020 00:05:42 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 08 Apr 2020 22:27:56 +0800</lastBuildDate>
     
 	<atom:link href="https://scopor.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Maven Scope 详解</title>
+      <link>https://scopor.github.io/posts/mavenscope%E8%AF%A6%E8%A7%A3/</link>
+      <pubDate>Wed, 08 Apr 2020 22:27:56 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/posts/mavenscope%E8%AF%A6%E8%A7%A3/</guid>
+      <description>Maven Scope 包含 compile、test、runtime、provided、system、import。其中默认依赖配置项是 compile。那么这几个配置有什么区别，我们来详解一下。 compile 不显示指定 Scope 时，作为默认</description>
+    </item>
     
     <item>
       <title>Spring Cloud Eureka 注册中心</title>
@@ -21,12 +30,39 @@
     </item>
     
     <item>
-      <title>Chrome非安全端口</title>
+      <title>SpringCloud注册中心Consul</title>
+      <link>https://scopor.github.io/posts/springcloud%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83consul/</link>
+      <pubDate>Fri, 20 Mar 2020 19:37:54 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/posts/springcloud%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83consul/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SpringCloud服务消费</title>
+      <link>https://scopor.github.io/posts/springcloud%E6%9C%8D%E5%8A%A1%E6%B6%88%E8%B4%B9/</link>
+      <pubDate>Fri, 20 Mar 2020 19:37:38 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/posts/springcloud%E6%9C%8D%E5%8A%A1%E6%B6%88%E8%B4%B9/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>SpringCloud服务注册</title>
+      <link>https://scopor.github.io/posts/springcloud%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C/</link>
+      <pubDate>Fri, 20 Mar 2020 19:37:27 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/posts/springcloud%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Chrome 非安全端口</title>
       <link>https://scopor.github.io/posts/chrome%E9%9D%9E%E5%AE%89%E5%85%A8%E7%AB%AF%E5%8F%A3/</link>
       <pubDate>Fri, 20 Mar 2020 19:34:47 +0800</pubDate>
       
       <guid>https://scopor.github.io/posts/chrome%E9%9D%9E%E5%AE%89%E5%85%A8%E7%AB%AF%E5%8F%A3/</guid>
-      <description>今天在测试微服务的时候，我使用了 6000 端口，在启动后使用 chrome 测试，发现不能正常访问，错误信息为 ERR_UNSAFE_PORT 。切换到 IE 浏览器后页面正常。 查阅相关错误信息后，发现 Chrome 浏览器，对一些端口做了禁用，主要是一些相关协议的端口，列</description>
+      <description>今天给一个 Web 服务配置了 6000 端口，使用 chrome 访问不了，换了 IE 浏览器正常，深究之后得知，chrome 浏览器会将一些协议的端口视为非安全端口。 错误信息 ERR_UNSAFE_PORT 解决方案 更换端口 右键单击Chrome快捷方式 ➡ 目标 ➡ 在后面添</description>
     </item>
     
     <item>
