@@ -6,13 +6,31 @@
     <description>Recent content in Tags on Sanoon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 08 Apr 2020 22:27:56 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 08 Apr 2020 23:36:09 +0800</lastBuildDate>
     
 	<atom:link href="https://scopor.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>maven</title>
+      <title>Log4j</title>
+      <link>https://scopor.github.io/tags/log4j/</link>
+      <pubDate>Wed, 08 Apr 2020 23:36:09 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/tags/log4j/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>日志脱敏</title>
+      <link>https://scopor.github.io/tags/%E6%97%A5%E5%BF%97%E8%84%B1%E6%95%8F/</link>
+      <pubDate>Wed, 08 Apr 2020 23:36:09 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/tags/%E6%97%A5%E5%BF%97%E8%84%B1%E6%95%8F/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Maven</title>
       <link>https://scopor.github.io/tags/maven/</link>
       <pubDate>Wed, 08 Apr 2020 22:27:56 +0800</pubDate>
       
