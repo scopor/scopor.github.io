@@ -6,10 +6,37 @@
     <description>Recent content in Tags on Sanoon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 08 Apr 2020 23:36:09 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 10 Apr 2020 23:24:13 +0800</lastBuildDate>
     
 	<atom:link href="https://scopor.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>cloudflare</title>
+      <link>https://scopor.github.io/tags/cloudflare/</link>
+      <pubDate>Fri, 10 Apr 2020 23:24:13 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/tags/cloudflare/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Google</title>
+      <link>https://scopor.github.io/tags/google/</link>
+      <pubDate>Fri, 10 Apr 2020 23:24:13 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/tags/google/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>反向代理</title>
+      <link>https://scopor.github.io/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</link>
+      <pubDate>Fri, 10 Apr 2020 23:24:13 +0800</pubDate>
+      
+      <guid>https://scopor.github.io/tags/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Log4j</title>
@@ -30,7 +57,7 @@
     </item>
     
     <item>
-      <title>Maven</title>
+      <title>maven</title>
       <link>https://scopor.github.io/tags/maven/</link>
       <pubDate>Wed, 08 Apr 2020 22:27:56 +0800</pubDate>
       
