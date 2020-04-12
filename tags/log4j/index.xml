@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Log4j on Sanoon</title>
-    <link>https://scopor.github.io/tags/log4j/</link>
+    <link>https://sanoon.me/tags/log4j/</link>
     <description>Recent content in Log4j on Sanoon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 08 Apr 2020 23:36:09 +0800</lastBuildDate>
     
-	<atom:link href="https://scopor.github.io/tags/log4j/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://sanoon.me/tags/log4j/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Log4j 日志脱敏</title>
-      <link>https://scopor.github.io/posts/log4j%E6%97%A5%E5%BF%97%E8%84%B1%E6%95%8F/</link>
+      <link>https://sanoon.me/posts/log4j%E6%97%A5%E5%BF%97%E8%84%B1%E6%95%8F/</link>
       <pubDate>Wed, 08 Apr 2020 23:36:09 +0800</pubDate>
       
-      <guid>https://scopor.github.io/posts/log4j%E6%97%A5%E5%BF%97%E8%84%B1%E6%95%8F/</guid>
+      <guid>https://sanoon.me/posts/log4j%E6%97%A5%E5%BF%97%E8%84%B1%E6%95%8F/</guid>
       <description>日常开发中，经常性的会遇到安全性问题，其中日志脱敏就是其中一种。下面我们就来看看如何对 Log4j 日志信息实现脱敏。 通常大家都会在 log4j.properties 中定义各种 appender，其中有一项配置信息是输出的格式化信息使用的 Layout 定义。</description>
     </item>
     

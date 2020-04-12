@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>jvm on Sanoon</title>
-    <link>https://scopor.github.io/tags/jvm/</link>
+    <link>https://sanoon.me/tags/jvm/</link>
     <description>Recent content in jvm on Sanoon</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 18 Mar 2020 23:32:34 +0800</lastBuildDate>
     
-	<atom:link href="https://scopor.github.io/tags/jvm/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://sanoon.me/tags/jvm/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>JVM 指令与工具</title>
-      <link>https://scopor.github.io/posts/jvm%E6%8C%87%E4%BB%A4%E4%B8%8E%E5%B7%A5%E5%85%B7/</link>
+      <link>https://sanoon.me/posts/jvm%E6%8C%87%E4%BB%A4%E4%B8%8E%E5%B7%A5%E5%85%B7/</link>
       <pubDate>Wed, 18 Mar 2020 23:32:34 +0800</pubDate>
       
-      <guid>https://scopor.github.io/posts/jvm%E6%8C%87%E4%BB%A4%E4%B8%8E%E5%B7%A5%E5%85%B7/</guid>
+      <guid>https://sanoon.me/posts/jvm%E6%8C%87%E4%BB%A4%E4%B8%8E%E5%B7%A5%E5%85%B7/</guid>
       <description>查看 Java 进程列表: jps jps 查看 gc 信息: jstat jstat -gcutil PID 毫秒数 jstat -gc PID 毫秒数 jstat -gcnew PID jstat -gcold PID 查看线程信息: jstack jstack PID 查看内存状态: jmap # 导出到文件中，需要使用其它工具打开 jmap -dump:file=file PID # 直接在控制台查看 jmap -heap PID 查看进程扩展参数信息：jin</description>
     </item>
     
