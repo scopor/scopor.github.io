@@ -1,0 +1,108 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=pragma content="no-cache"><meta http-equiv=cache-control content="no-cache"><meta name=author content="Sanoon"><meta name=description content="什么是单例，顾名思义，只允许有一个实例。使用场景常见的有数据库连接池、多线程的线程池等。总之 JVM 中只允许存在一个对象实例的都可以选择单例模式。那单例模式的实现方式都有哪些呢？请看下面的详解。"><meta name=keywords content="Sanoon,life,love"><link rel=canonical href=https://scopor.github.io/posts/%E8%AF%A6%E8%A7%A3%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/><title>详解单例模式 &#183; Sanoon</title><link rel="shortcut icon" href=https://scopor.github.io/images/favicon.ico><link rel=stylesheet href=https://scopor.github.io/css/animate.min.css><link rel=stylesheet href=https://scopor.github.io/css/remixicon.css><link rel=stylesheet href=https://scopor.github.io/css/zozo.css><link rel=stylesheet href=https://scopor.github.io/css/highlight.css></head><body><div class="main animated"><div class="nav_container animated fadeInDown"><div class=site_nav id=site_nav><ul><li><a href=/>首页</a></li><li><a href=/posts/>归档</a></li><li><a href=/tags/>标签</a></li><li><a href=/about/>关于</a></li></ul></div><div class=menu_icon><a id=menu_icon><i class=remixicon-links-line></i></a></div></div><div class="header animated fadeInDown"><div class=site_title_container><div class=site_title><h1><a href=https://scopor.github.io><span>Sanoon</span>
+<img src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.0.3/logos.svg></a></h1></div><div class=description><p class=sub_title>Life with teacher Jia.</p><div class=my_socials><a href=https://www.douban.com/people/lingluoyanchen/ title=book target=_blank><i class=remixicon-book-fill></i></a><a href=https://github.com/scopor title=github target=_blank><i class=remixicon-github-fill></i></a><a href="https://music.163.com/#/my/m/music/playlist?id=97552201" title=music target=_blank><i class=remixicon-music-fill></i></a><a href=https://twitter.com/DesperadoYan title=twitter target=_blank><i class=remixicon-twitter-fill></i></a><a href=https://scopor.github.io/index.xml type=application/rss+xml title=rss target=_blank><i class=remixicon-rss-fill></i></a></div></div></div></div><div class=content><div class=post_page><div class="post animated fadeInDown"><div class="post_title post_detail_title"><h2><a href=/posts/%E8%AF%A6%E8%A7%A3%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/>详解单例模式</a></h2><span class=date>2020.04.15</span></div><div class="post_content markdown"><h2 id=单例模式>单例模式</h2><p>什么是单例，顾名思义，只允许有一个实例。使用场景常见的有数据库连接池、多线程的线程池等。总之 JVM 中只允许存在一个对象实例的都可以选择单例模式。那单例模式的实现方式都有哪些呢？请看下面的详解。</p><h2 id=饿汉式>饿汉式</h2><p>饿汉式，就是一上来就创建，实现方式如下：</p><pre><code>public class Singleton {
+
+    private static Singleton INSTANCE = new Singleton();
+
+    private Singleton() {
+    }
+
+    public static Singleton getInstance() {
+        return INSTANCE;
+    }
+    
+}
+</code></pre><p>饿汉式是基于类的加载机制，避免了多线程下的同步问题，缺点是加载慢，优点是获取对象的速度快。</p><h2 id=懒汉式>懒汉式</h2><p>懒汉式，就是在使用的时候才去创建，有延迟加载的意思，具体实现方式如下：</p><pre><code>public class Singleton {
+
+    private static Singleton INSTANCE;
+
+    private Singleton() {
+    }
+
+    public static Singleton getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new Singleton();
+        }
+        return INSTANCE;
+    }
+    
+}
+</code></pre><p>懒汉式存在的问题就是多线程场景下不能保证实例唯一，解决方式自然而然的就想到加同步锁 synchronized，如下：</p><pre><code>public class Singleton {
+
+    private static Singleton INSTANCE;
+
+    private Singleton() {
+    }
+
+    public static synchronized Singleton getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new Singleton();
+        }
+        return INSTANCE;
+    }
+    
+}
+</code></pre><p>但是有的小伙伴就会想到如果实例已经创建过了，那么每次调用还需要进行同步，会存在性能消耗的问题，怎么解决呢？聪明的大神想到了使用 DCL 机制解决这个问题。</p><h2 id=双重加锁式dcl>双重加锁式（DCL）</h2><pre><code>public class Singleton {
+
+    private volatile static Singleton INSTANCE;
+
+    private Singleton() {
+    }
+
+    public static Singleton getInstance() {
+        if (INSTANCE == null) {
+        	synchronized(Singleton.class) {
+        		INSTANCE = new Singleton();
+        	}
+        }
+        return INSTANCE;
+    }
+    
+}
+</code></pre><p>可以看到此处做了两点改动，一是多了双重判断，一是多了关键字 volatile。</p><p>双重判断是为了解决多次调用是如果实例已经存在，不用再去进行同步的问题，一部分程度上降低了性能开销。</p><p>而 volatile 是为了解决 JVM 内部指令重排的问题，简单来讲就是当 A 线程在同步代码中进行实例创建时，做了赋值操作，假如构造函数操作过多，实例还没有被创建出来的时候，B 线程进入，会因为赋初值的原因，误判实例已经创建，使用的时候就会报错。</p><p>这也就是说 synchronized 保证了原子性，但是 CPU 会对 new 做优化，会打乱调用构造函数 和 返回地址引用的顺序，导致存在，A 先返回了地址引用，但 B 误判已经创建成功的情况，因此使用 volatile 保证了使用 new 指令的时候不会发生排重排。</p><p>那么小伙伴又有问题了，懒汉式虽然实现了延迟加载，但是保证没有多线程同步问题的写法太繁琐了，下面我们就来介绍一种优雅的写法。</p><h2 id=静态内部类式>静态内部类式</h2><p>我们先来看一下实现。</p><pre><code>public class Singleton {
+
+    private Singleton() {
+    }
+    
+    private static class SingletonHolder {
+    	private static Singleton INSTANCE = new Singleton();
+    }
+
+    public static Singleton getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+    
+}
+</code></pre><p>静态内部类式，只有在类第一次调用 getInstance 方法时，JVM 才会加载静态内部类 SingletonHolder，并初始化 INSTANCE，实现了延迟加载，同时也能保证没有多线程同步的问题。</p><p>那么还有没有更简洁的方式呢？下面我们就来看一下枚举式。</p><h2 id=枚举式>枚举式</h2><p>先上代码</p><pre><code>public enum Singleton {
+	INSTANCE;
+	public void doBiz() {
+		
+	}
+}
+</code></pre><p>这是一种多线程安全的单例模式，并且，在任何情况下都是单例。</p><p>这里小伙伴就会产生疑问了，为什么说任何情况下呢？阅读过 Enum 源码的同学就会看到有两个阻止序列化的方法。</p><h2 id=反序列化攻击>反序列化攻击</h2><p>除了枚举式之外，如果你的单例实现了序列化接口的时候，就可以通过反序列化读取磁盘上的序列化内容，创建实例，此时就会在 JVM 上存在多个实例，如果要避免这种问题，就需要重写 readResolve() 方法，直接返回实例或者抛异常。</p><pre><code>private Object readResolve() throws ObjectStreamException {  
+    return INSTANCE;
+}
+</code></pre><p>那么除了反序列化攻击之外，还有没有其他攻击方式呢？</p><h2 id=反射攻击>反射攻击</h2><p>我们大家都知道反射机制可以调用类的私有方法，反射攻击单例就是利用了该特性。因此我们可以在构造方法中判断单例是否存在，如果存在就抛异常的方式来避免反射攻击的发生。</p><p>下面是防止反射攻击的静态内部类式单例。</p><pre><code>public class Singleton {
+
+    private Singleton() {
+    	if (null != SingletonHolder.INSTANCE) {
+    		throw new RuntimeException();
+    	}
+    }
+    
+    private static class SingletonHolder {
+    	private static Singleton INSTANCE = new Singleton();
+    }
+
+    public static Singleton getInstance() {
+        return SingletonHolder.INSTANCE;
+    }
+    
+}
+</code></pre><p>同理，除了枚举式之外的其他模式都可以被反射和序列化攻击，改造方式相同，不在赘述。</p></div><div class=post_footer><div class=meta><div class=info><span class="field tags"><i class=remixicon-stack-line></i><a href=https://scopor.github.io/tags/dcl/>DCL</a>
+<a href=https://scopor.github.io/tags/%E6%87%92%E6%B1%89%E5%BC%8F/>懒汉式</a>
+<a href=https://scopor.github.io/tags/volatile/>volatile</a>
+<a href=https://scopor.github.io/tags/%E5%8D%95%E4%BE%8B/>单例</a>
+<a href=https://scopor.github.io/tags/singleton/>Singleton</a>
+<a href=https://scopor.github.io/tags/jvm/>JVM</a>
+<a href=https://scopor.github.io/tags/%E5%8F%8D%E5%B0%84%E6%94%BB%E5%87%BB/>反射攻击</a></span></div></div></div></div></div></div><a id=back_to_top href=# class=back_to_top><span>△</span></a></div><footer class=footer><div class=powered_by><a href=https://zeuk.me>Designed by Zeuk,</a>
+<a href=http://www.gohugo.io/>Proudly published with Hugo</a></div><div class=footer_slogan><span>时间改变了很多也什么都没有, 让我再次拥抱你废都.</span></div></footer><script src=https://scopor.github.io/js/jquery-3.3.1.min.js></script><script src=https://scopor.github.io/js/zozo.js></script><script src=https://scopor.github.io/js/highlight.pack.js></script><link href=https://scopor.github.io/css/fancybox.min.css rel=stylesheet><script src=https://scopor.github.io/js/fancybox.min.js></script><script>hljs.initHighlightingOnLoad()</script><script type=text/javascript async src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\[\[','\]\]']],processEscapes:true,processEnvironments:true,skipTags:['script','noscript','style','textarea','pre'],TeX:{equationNumbers:{autoNumber:"AMS"},extensions:["AMSmath.js","AMSsymbols.js"]}}});MathJax.Hub.Queue(function(){var all=MathJax.Hub.getAllJax(),i;for(i=0;i<all.length;i+=1){all[i].SourceElement().parentNode.className+=' has-jax';}});</script><style>code.has-jax{font:inherit;font-size:100%;background:inherit;border:inherit;color:#515151}</style><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-163559575-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
