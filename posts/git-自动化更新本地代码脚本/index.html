@@ -1,0 +1,33 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=pragma content="no-cache"><meta http-equiv=cache-control content="no-cache"><meta name=author content="Sanoon"><meta name=description content="在本地开发的过程中，每天需要更新多个项目且大量的 MR 到本地代码库，使用该脚本自动化更新。"><meta name=keywords content="Git,自动化"><link rel=canonical href=https://sanoon.me/posts/git-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9B%B4%E6%96%B0%E6%9C%AC%E5%9C%B0%E4%BB%A3%E7%A0%81%E8%84%9A%E6%9C%AC/><title>Git 自动化更新本地代码脚本.md | Sanoon with Lemon</title><link rel="shortcut icon" href=https://sanoon.me/images/favicon.ico><link rel=stylesheet href=https://sanoon.me/css/animate.min.css><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/remixicon@2.4.0/fonts/remixicon.css><link rel=stylesheet href=https://sanoon.me/css/zozo.css><link rel=stylesheet href=https://sanoon.me/css/highlight.css></head><body><div class="main animated"><div class="nav_container animated fadeInDown"><div class=site_nav id=site_nav><ul><li><a href=/>首页</a></li><li><a href=/posts/>归档</a></li><li><a href=/tags/>标签</a></li><li><a href=/about/>关于</a></li></ul></div><div class=menu_icon><a id=menu_icon><i class=remixicon-links-line></i></a></div></div><div class="header animated fadeInDown"><div class=site_title_container><div class=site_title><h1><a href=https://sanoon.me><span>Sanoon with Lemon</span>
+<img src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.0.3/logos.svg></a></h1></div><div class=description><p class=sub_title>Life with teacher Lemon.</p><div class=my_socials><a href=https://www.douban.com/people/lingluoyanchen/ title=book target=_blank><i class=remixicon-book-fill></i></a><a href=https://github.com/scopor title=github target=_blank><i class=remixicon-github-fill></i></a><a href="https://music.163.com/#/my/m/music/playlist?id=97552201" title=music target=_blank><i class=remixicon-music-fill></i></a><a href=https://twitter.com/DesperadoYan title=twitter target=_blank><i class=remixicon-twitter-fill></i></a><a href=https://sanoon.me/index.xml type=application/rss+xml title=rss target=_blank><i class=remixicon-rss-fill></i></a></div></div></div></div><div class=content><div class=post_page><div class="post animated fadeInDown"><div class="post_title post_detail_title"><h2><a href=/posts/git-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9B%B4%E6%96%B0%E6%9C%AC%E5%9C%B0%E4%BB%A3%E7%A0%81%E8%84%9A%E6%9C%AC/>Git 自动化更新本地代码脚本.md</a></h2><span class=date>2020.02.28</span></div><div class="post_content markdown"><p>在本地开发的过程中，每天需要更新多个项目且大量的 MR 到本地代码库，使用该脚本自动化更新。</p><pre><code>#!/bin/bash
+
+echo &quot;----------------------------------------------------update code start----------------------------------------------------&quot;
+
+echo &quot;Your code root dir is $1.&quot;
+
+# shellcheck disable=SC2006
+filelist=`ls $1`
+
+for file in $filelist
+do
+  if [ -d &quot;$1/$file&quot; ]; then
+    echo &quot;update $1/$file start..............................................................&quot;
+    # shellcheck disable=SC2164
+    cd &quot;$1/$file&quot;
+    echo &quot;reset to HEAD..........................&quot;
+    git reset --hard HEAD
+    echo &quot;fetch all..............................&quot;
+    git fetch --all
+    echo &quot;pull all...............................&quot;
+    git pull --all
+    cd ../
+    echo  &quot;update $1/$file finish..............................................................&quot;
+    echo &quot;&quot;
+    echo &quot;&quot;
+  fi
+done
+
+echo &quot;----------------------------------------------------update code finish----------------------------------------------------&quot;
+</code></pre><p><code>用法</code>：sh updatecode.sh your_code_dir
+<code>备注</code>：Windows 请在 Git Bash 中运行.</p></div><div class=post_footer><div class=meta><div class=info><span class="field tags"><i class=remixicon-stack-line></i><a href=https://sanoon.me/tags/git/>Git</a></span></div></div></div></div></div></div><a id=back_to_top href=# class=back_to_top><span>△</span></a></div><footer class=footer><div class=powered_by><a href=https://zeuk.me>Designed by Zeuk,</a>
+<a href=http://www.gohugo.io/>Proudly published with Hugo</a></div><div class=footer_slogan><span>时间改变了很多也什么都没有, 让我再次拥抱你废都.</span></div></footer><script src=https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js></script><script src=https://sanoon.me/js/zozo.js></script><script src=https://sanoon.me/js/highlight.pack.js></script><link href=https://sanoon.me/css/fancybox.min.css rel=stylesheet><script src=https://sanoon.me/js/fancybox.min.js></script><script>hljs.initHighlightingOnLoad()</script><script type=text/javascript async src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\[\[','\]\]']],processEscapes:true,processEnvironments:true,skipTags:['script','noscript','style','textarea','pre'],TeX:{equationNumbers:{autoNumber:"AMS"},extensions:["AMSmath.js","AMSsymbols.js"]}}});MathJax.Hub.Queue(function(){var all=MathJax.Hub.getAllJax(),i;for(i=0;i<all.length;i+=1){all[i].SourceElement().parentNode.className+=' has-jax';}});</script><style>code.has-jax{font:inherit;font-size:100%;background:inherit;border:inherit;color:#515151}</style><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-163559575-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
