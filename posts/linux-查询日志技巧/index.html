@@ -4,6 +4,7 @@
 </code></pre><h2 id=head-命令>head 命令</h2><ul><li>查询前面 N 行</li></ul><pre><code>head -n log.log
 </code></pre><h2 id=grep-命令>grep 命令</h2><ul><li>过滤某个关键字 key</li></ul><pre><code>grep key log.log
 </code></pre><ul><li>过滤某个关键字 key 前后 N 行</li></ul><pre><code>grep -C N key log.log
+</code></pre><ul><li>搜索当前路径下含有某个关键 key 的记录</li></ul><pre><code>grep -r key ./
 </code></pre><h2 id=vi-命令>vi 命令</h2><ul><li>打开文件</li></ul><pre><code>vi log.log
 </code></pre><ul><li>搜索关键字 key</li></ul><pre><code>/key
 </code></pre><ul><li>倒序搜索关键字</li></ul><pre><code>:? key
