@@ -746,5 +746,35 @@ th.specalt {
   font: bold 10px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif;
   color: #797268;
 }
+
+.preAndNext {
+  width: 100%;
+  height: 100%;
+  /* 设置元素两端对齐 */
+  text-align: justify;
+}
+
+.preAndNext:after {
+  content: "";
+  display: inline-block;
+  overflow: hidden;
+  width: 100%;
+}
+
+.preAndNext span {
+  height: 50px;
+  /* 设置盒子为行内块 */
+  display: inline-block;
+  /* 设置盒子内容垂直居中 */
+  line-height: 50px;
+}
+
+.preAndNext .previous {
+  text-align: left;
+}
+
+.preAndNext .next {
+  text-align: right;
+}
 /*animation ends*/
 /*# sourceMappingURL=zozo.css.map */
