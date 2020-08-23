@@ -776,5 +776,19 @@ th.specalt {
 .preAndNext .next {
   text-align: right;
 }
+
+.iframevideo { width: 100%; height: 500px; }
+@media only screen and (max-width:959px){
+  .iframevideo { height: 450px; }
+}
+@media only screen and (max-width:767px){
+  .iframevideo { height: 400px; }
+}
+@media only screen and (max-width:639px){
+  .iframevideo { height: 350px; }
+}
+@media only screen and (max-width:479px){
+  .iframevideo { height: 250px; }
+}
 /*animation ends*/
 /*# sourceMappingURL=zozo.css.map */
