@@ -792,7 +792,12 @@ th.specalt {
 }
 
 .meta .remixicon-stack-line {
-  vertical-align: -3px;
+  vertical-align: -2px;
+  margin-right: 5px;
+}
+
+.meta .remixicon-map-pin-time-line {
+  vertical-align: -2px;
   margin-right: 5px;
 }
 /*animation ends*/
