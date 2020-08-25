@@ -1,0 +1,158 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=pragma content="no-cache"><meta http-equiv=cache-control content="no-cache"><meta name=author content="Sanoon"><meta name=description content="从零开始搭建 zookeeper 集群以及 Kafka 集群环境。"><meta name=keywords content="Zookeeper,Kafka,Jdk"><link rel=canonical href=https://sanoon.me/posts/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA-kafka-%E9%9B%86%E7%BE%A4/><title>从零开始搭建 zookeeper 和 Kafka 集群 | Sanoon with Lemon - Java, Go, Python, SpringBoot, Spring Cloud, Docker, Vue</title><link rel="shortcut icon" href=https://sanoon.me/images/favicon.ico><link rel=stylesheet href=https://sanoon.me/css/animate.min.css><link rel=stylesheet href=https://sanoon.me/css/remixicon.css><link rel=stylesheet href=https://sanoon.me/css/zozo.css><link rel=stylesheet href=https://sanoon.me/css/highlight.css><script data-ad-client=ca-pub-6765261154701378 async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></head><body><div class="main animated"><div class="nav_container animated fadeInDown"><div class=site_nav id=site_nav><ul><li><a href=/>首页</a></li><li><a href=/posts/>归档</a></li><li><a href=/photo/>摄影</a></li><li><a href=/tags/>标签</a></li><li><a href=/about/>关于</a></li></ul></div><div class=menu_icon><a id=menu_icon><i class=remixicon-links-line></i></a></div></div><div class="header animated fadeInDown"><div class=site_title_container><div class=site_title><h1><a href=https://sanoon.me><span>Sanoon with Lemon</span>
+<img src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.0.3/logos.svg style=margin-top:-8px></a></h1></div><div class=description><p class=sub_title>Life with teacher Lemon.</p><div class=my_socials><a href=https://book.douban.com/people/lingluoyanchen/collect title=book target=_blank><i class=remixicon-book-fill></i></a><a href=https://sanoon.me/photo/ title=camera target=_blank><i class=remixicon-camera-fill></i></a><a href=https://github.com/scopor title=github target=_blank><i class=remixicon-github-fill></i></a><a href=https://movie.douban.com/people/lingluoyanchen/collect title=movie target=_blank><i class=remixicon-movie-fill></i></a><a href="https://music.163.com/#/my/m/music/playlist?id=97552201" title=music target=_blank><i class=remixicon-music-fill></i></a><a href=https://twitter.com/DesperadoYan title=twitter target=_blank><i class=remixicon-twitter-fill></i></a><a href=https://sanoon.me/index.xml type=application/rss+xml title=rss target=_blank><i class=remixicon-rss-fill></i></a></div></div></div></div><div class=content><div class=post_page><div class="post animated fadeInDown"><div class="post_title post_detail_title"><h2><a href=/posts/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E6%90%AD%E5%BB%BA-kafka-%E9%9B%86%E7%BE%A4/>从零开始搭建 zookeeper 和 Kafka 集群</a></h2><span class=date>2020.05.15</span></div><div class="post_content markdown"><h3 id=安装-jdk>安装 jdk</h3><h4 id=下载安装-jdk>下载安装 jdk</h4><pre><code>cd /data
+wget --no-cookies --no-check-certificate --header &quot;Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie&quot; &quot;http://download.oracle.com/otn-pub/java/jdk/8u141-b15/336fa29ff2bb4ef291e347e091f7f4a7/jdk-8u141-linux-x64.tar.gz&quot;
+tar -zxvf jdk-8u141-linux-x64.tar.gz
+mv jdk1.8.0_141/ jdk
+</code></pre><h4 id=设置环境变量>设置环境变量</h4><p>vi 编辑 /etc/profile，写入以下信息并 :wq! 保存，执行 source /etc/profile 命令，使其生效，执行 java -version 查看是否配置成功</p><pre><code>JAVA_HOME=/data/jdk
+JRE_HOME=/data/jdk/jre
+CLASS_PATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar:$JRE_HOME/lib
+PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+export JAVA_HOME JRE_HOME CLASS_PATH PATH
+</code></pre><hr><h3 id=搭建-zookeeper-集群>搭建 zookeeper 集群</h3><h4 id=下载安装-zookeeper>下载安装 zookeeper</h4><pre><code>cd data
+wget http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.11/zookeeper-3.4.11.tar.gz
+tar -zxvf zookeeper-3.4.11.tar.gz
+mv zookeeper-3.4.11 zk1
+mkdir zookeeper
+mv zk1 zookeeper
+cd zookeeper/zk1
+mkdir zkdata zkdatalog
+</code></pre><h4 id=配置-zookeeper编辑zk1confzoocfg写入以下内容退出保存>配置 zookeeper，编辑zk1/conf/zoo.cfg，写入以下内容，退出保存</h4><pre><code>tickTime=2000
+initLimit=10
+syncLimit=5
+dataDir=/data/zookeeper/zk1/zkdata
+dataLogDir=/data/zookeeper/zk1/zkdatalog
+clientPort=12181
+#ip端口根据自己的配置修改
+server.1=192.168.1.134:12888:13888
+server.2=192.168.1.134:22888:23888
+server.3=192.168.1.134:32888:33888
+</code></pre><h4 id=配置-myid>配置 myid</h4><pre><code>cd zkdata
+echo &quot;1&quot; &gt; myid
+</code></pre><h3 id=zk2-和-zk3-节点配置>zk2 和 zk3 节点配置</h3><h4 id=复制-zk1-为-zk2-和-zk3>复制 zk1 为 zk2 和 zk3</h4><pre><code>cp -rf zk1 zk2 zk3
+</code></pre><h4 id=zk2confzoocfg-配置配置如下>zk2/conf/zoo.cfg 配置配置如下：</h4><pre><code>tickTime=2000
+initLimit=10
+syncLimit=5
+dataDir=/data/zookeeper/zk2/zkdata
+dataLogDir=/data/zookeeper/zk2/zkdatalog
+clientPort=22181
+#ip端口根据自己的配置修改
+server.1=192.168.1.134:12888:13888
+server.2=192.168.1.134:22888:23888
+server.3=192.168.1.134:32888:33888
+</code></pre><h4 id=zk2zkdatamyid-配置如下>zk2/zkdata/myid 配置如下：</h4><pre><code>2
+</code></pre><h4 id=zk3confzoocfg-配置配置如下>zk3/conf/zoo.cfg 配置配置如下：</h4><pre><code>tickTime=2000
+initLimit=10
+syncLimit=5
+dataDir=/data/zookeeper/zk3/zkdata
+dataLogDir=/data/zookeeper/zk3/zkdatalog
+clientPort=32181
+#ip端口根据自己的配置修改
+server.1=192.168.1.134:12888:13888
+server.2=192.168.1.134:22888:23888
+server.3=192.168.1.134:32888:33888
+</code></pre><h4 id=zk3zkdatamyid-配置如下>zk3/zkdata/myid 配置如下：</h4><pre><code>3
+</code></pre><h4 id=启动-zookeeper-集群>启动 zookeeper 集群</h4><pre><code>cd /data/zookeeper/zk1/bin/
+./zkServer.sh start
+
+cd /data/zookeeper/zk2/bin/
+./zkServer.sh start
+
+cd /data/zookeeper/zk2/bin/
+./zkServer.sh start
+</code></pre><h4 id=查看-zookeeper-节点状态>查看 zookeeper 节点状态</h4><pre><code>cd /data/zookeeper/zk1/bin/
+./zkServer.sh status
+
+cd /data/zookeeper/zk2/bin/
+./zkServer.sh status
+
+cd /data/zookeeper/zk2/bin/
+./zkServer.sh status
+</code></pre><hr><h3 id=搭建-kafka-集群>搭建 Kafka 集群</h3><h4 id=下载安装-kafka>下载安装 Kafka</h4><pre><code>cd data
+wget http://mirror.bit.edu.cn/apache/kafka/0.11.0.2/kafka_2.11-0.11.0.2.tgz
+tar -zxvf kafka_2.11-0.11.0.2.tgz
+mv kafka_2.11-0.11.0.2 k1
+mkdir kafka
+mv k1 kafka
+cd kafka/k1
+mkdir kafkaLogs
+</code></pre><h4 id=配置-kafka>配置 Kafka</h4><p>k1/config/server.properties配置如下：</p><pre><code>broker.id=0
+port=19092
+num.network.threads=3
+num.io.threads=8
+socket.send.buffer.bytes=102400
+socket.receive.buffer.bytes=102400
+socket.request.max.bytes=104857600
+log.dirs=/data/kafka/k1/kafkaLogs
+num.partitions=2
+num.recovery.threads.per.data.dir=1
+offsets.topic.replication.factor=1
+transaction.state.log.replication.factor=1
+transaction.state.log.min.isr=1
+log.retention.hours=168
+message.max.byte=5242880
+default.replication.factor=2
+replica.fetch.max.bytes=5242880
+log.segment.bytes=1073741824
+log.retention.check.interval.ms=300000
+zookeeper.connect=192.168.1.134:12181,192.168.1.134:21281,192.168.1.134:31281
+zookeeper.connection.timeout.ms=6000
+group.initial.rebalance.delay.ms=0
+</code></pre><p>k2/config/server.properties配置如下：</p><pre><code>broker.id=1
+port=29092
+num.network.threads=3
+num.io.threads=8
+socket.send.buffer.bytes=102400
+socket.receive.buffer.bytes=102400
+socket.request.max.bytes=104857600
+log.dirs=/data/kafka/k2/kafkaLogs
+num.partitions=2
+num.recovery.threads.per.data.dir=1
+offsets.topic.replication.factor=1
+transaction.state.log.replication.factor=1
+transaction.state.log.min.isr=1
+log.retention.hours=168
+message.max.byte=5242880
+default.replication.factor=2
+replica.fetch.max.bytes=5242880
+log.segment.bytes=1073741824
+log.retention.check.interval.ms=300000
+zookeeper.connect=192.168.1.134:12181,192.168.1.134:21281,192.168.1.134:31281
+zookeeper.connection.timeout.ms=6000
+group.initial.rebalance.delay.ms=0
+</code></pre><p>k3/config/server.properties配置如下：</p><pre><code>broker.id=2
+port=39092
+num.network.threads=3
+num.io.threads=8
+socket.send.buffer.bytes=102400
+socket.receive.buffer.bytes=102400
+socket.request.max.bytes=104857600
+log.dirs=/data/kafka/k3/kafkaLogs
+num.partitions=2
+num.recovery.threads.per.data.dir=1
+offsets.topic.replication.factor=1
+transaction.state.log.replication.factor=1
+transaction.state.log.min.isr=1
+log.retention.hours=168
+message.max.byte=5242880
+default.replication.factor=2
+replica.fetch.max.bytes=5242880
+log.segment.bytes=1073741824
+log.retention.check.interval.ms=300000
+zookeeper.connect=192.168.1.134:12181,192.168.1.134:21281,192.168.1.134:31281
+zookeeper.connection.timeout.ms=6000
+group.initial.rebalance.delay.ms=0
+</code></pre><h4 id=启动-kafka-集群>启动 Kafka 集群</h4><pre><code>cd /data/kafka/k1/bin
+./kafka-server-start.sh -daemon ../config/server.properties &amp;
+
+cd /data/kafka/k2/bin
+./kafka-server-start.sh -daemon ../config/server.properties &amp;
+
+cd /data/kafka/k3/bin
+./kafka-server-start.sh -daemon ../config/server.properties &amp;
+</code></pre><hr></div><div class=post_footer><div class=meta><div class=info><span class="field tags"><i class=remixicon-stack-line></i><a href=https://sanoon.me/tags/zookeeper/>Zookeeper</a>
+<a href=https://sanoon.me/tags/kafka/>Kafka</a>
+<a href=https://sanoon.me/tags/jdk/>Jdk</a>
+<span id=busuanzi_container_page_pv>已被阅读&nbsp;<span id=busuanzi_value_page_pv></span>&nbsp;次</span></span></div></div></div><div class=preAndNext style=margin-top:20px><span><font color=red>Prev: </font><a class=previous href=https://sanoon.me/posts/zookeeper-%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/>Zookeeper 安装笔记</a></span>
+<span><font color=red>Next: </font><a class=next href=https://sanoon.me/posts/kafka-%E5%AE%89%E8%A3%85%E7%AC%94%E8%AE%B0/>Kafka 安装笔记</a></span></div></div><div class=doc_comments><div class=comments_block_title>发表评论</div><div id=vcomments></div></div><link rel=stylesheet href=https://sanoon.me/css/comments.css><script src=//cdn1.lncld.net/static/js/3.0.4/av-min.js></script><script src=//unpkg.com/valine/dist/Valine.min.js></script><script type=text/javascript>new Valine({el:'#vcomments',appId:'OLqTxeg1gvrPJ1ACgxP00SRd-MdYXbMMI',appKey:'64y2gAzoOfgjrFS083wLDKsA',placeholder:' ',visitor:'true',})</script></div></div><a id=back_to_top href=# class=back_to_top><span>△</span></a></div><footer class=footer><div class=powered_by><a href=https://zeuk.me>Designed by Zeuk,</a>
+<a href=http://www.gohugo.io/>Proudly published with Hugo</a></div><div class=footer_slogan><span>时间改变了很多也什么都没有, 让我再次拥抱你废都.</span>
+<span id=busuanzi_container_site_pv>已被访问&nbsp;<span id=busuanzi_value_site_pv></span>&nbsp;次</span></div><div class=footer_slogan style=margin-top:-10px><span>友情链接：&nbsp;<a href=https://lemoniu.me>柠檬菇凉</a></span></div></footer><script src=https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js></script><script src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.3/zozo.js></script><script src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.3/highlight.pack.js></script><link href=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.1/fancybox.min.css rel=stylesheet><script src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.3/fancybox.min.js></script><script>hljs.initHighlightingOnLoad()</script><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><script type=text/javascript async src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\[\[','\]\]']],processEscapes:true,processEnvironments:true,skipTags:['script','noscript','style','textarea','pre'],TeX:{equationNumbers:{autoNumber:"AMS"},extensions:["AMSmath.js","AMSsymbols.js"]}}});MathJax.Hub.Queue(function(){var all=MathJax.Hub.getAllJax(),i;for(i=0;i<all.length;i+=1){all[i].SourceElement().parentNode.className+=' has-jax';}});</script><style>code.has-jax{font:inherit;font-size:100%;background:inherit;border:inherit;color:#515151}</style><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-163559575-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

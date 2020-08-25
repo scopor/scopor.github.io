@@ -1,0 +1,61 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=pragma content="no-cache"><meta http-equiv=cache-control content="no-cache"><meta name=author content="Sanoon"><meta name=description content="HTTPS 即 HTTP over SSL，是确保 HTTP 连接建立在 SSL 之上，保证浏览器到服务器的安全。"><meta name=keywords content="Https,Certbot,Nginx"><link rel=canonical href=https://sanoon.me/posts/%E5%85%8D%E8%B4%B9https%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7%E4%B8%8E%E9%85%8D%E7%BD%AE/><title>免费 Https 证书的申请与配置 | Sanoon with Lemon - Java, Go, Python, SpringBoot, Spring Cloud, Docker, Vue</title><link rel="shortcut icon" href=https://sanoon.me/images/favicon.ico><link rel=stylesheet href=https://sanoon.me/css/animate.min.css><link rel=stylesheet href=https://sanoon.me/css/remixicon.css><link rel=stylesheet href=https://sanoon.me/css/zozo.css><link rel=stylesheet href=https://sanoon.me/css/highlight.css><script data-ad-client=ca-pub-6765261154701378 async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></head><body><div class="main animated"><div class="nav_container animated fadeInDown"><div class=site_nav id=site_nav><ul><li><a href=/>首页</a></li><li><a href=/posts/>归档</a></li><li><a href=/photo/>摄影</a></li><li><a href=/tags/>标签</a></li><li><a href=/about/>关于</a></li></ul></div><div class=menu_icon><a id=menu_icon><i class=remixicon-links-line></i></a></div></div><div class="header animated fadeInDown"><div class=site_title_container><div class=site_title><h1><a href=https://sanoon.me><span>Sanoon with Lemon</span>
+<img src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.0.3/logos.svg style=margin-top:-8px></a></h1></div><div class=description><p class=sub_title>Life with teacher Lemon.</p><div class=my_socials><a href=https://book.douban.com/people/lingluoyanchen/collect title=book target=_blank><i class=remixicon-book-fill></i></a><a href=https://sanoon.me/photo/ title=camera target=_blank><i class=remixicon-camera-fill></i></a><a href=https://github.com/scopor title=github target=_blank><i class=remixicon-github-fill></i></a><a href=https://movie.douban.com/people/lingluoyanchen/collect title=movie target=_blank><i class=remixicon-movie-fill></i></a><a href="https://music.163.com/#/my/m/music/playlist?id=97552201" title=music target=_blank><i class=remixicon-music-fill></i></a><a href=https://twitter.com/DesperadoYan title=twitter target=_blank><i class=remixicon-twitter-fill></i></a><a href=https://sanoon.me/index.xml type=application/rss+xml title=rss target=_blank><i class=remixicon-rss-fill></i></a></div></div></div></div><div class=content><div class=post_page><div class="post animated fadeInDown"><div class="post_title post_detail_title"><h2><a href=/posts/%E5%85%8D%E8%B4%B9https%E8%AF%81%E4%B9%A6%E7%94%B3%E8%AF%B7%E4%B8%8E%E9%85%8D%E7%BD%AE/>免费 Https 证书的申请与配置</a></h2><span class=date>2020.06.18</span></div><div class="post_content markdown"><p>HTTPS 即 HTTP over SSL，是确保 HTTP 连接建立在 SSL 之上，保证浏览器发送到服务器的数据的安全。</p><h3 id=下载-certbot-客户端>下载 certbot 客户端</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell>wget https://dl.eff.org/certbot-auto
+
+chmod a+x ./certbot-auto
+</code></pre></div><h3 id=申请免费证书>申请免费证书</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>./certbot-auto certonly --standalone -d www.sanoon.me -d sanoon.me
+</code></pre></div><h3 id=nginx-证书配置80-端口强制跳转到-https>Nginx 证书配置，80 端口强制跳转到 https</h3><pre><code>server {
+    listen 80;
+    listen [::]:80;
+    server_name sanoon.me www.sanoon.me;
+    rewrite ^(.*) https://www.sanoon.me$1 permanent;
+}
+
+server {
+    listen 443 ssl;
+    server_name sanoon.me www.sanoon.me;
+    ssl_certificate /etc/letsencrypt/live/www.sanoon.me/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/www.sanoon.me/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/www.sanoon.me/chain.pem;
+
+    # 压缩
+    gzip on;
+    gzip_min_length 1k;
+    gzip_comp_level 2;
+    gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png font/ttf font/otf image/svg+xml;
+    gzip_vary on;
+    gzip_disable &quot;MSIE [1-6]\.&quot;;
+
+    # 缓存
+    location ~* ^.+\.(ico|gif|jpg|jpeg|png)$ {
+            access_log   off;
+            expires      30d;
+    }
+
+    location ~* ^.+\.(css|js|txt|xml|swf|wav)$ {
+            access_log   off;
+            expires      24h;
+    }
+
+    location ~* ^.+\.(html|htm)$ {
+         expires      1h;
+    }
+
+    location ~* ^.+\.(eot|ttf|otf|woff|svg)$ {
+            access_log   off;
+            expires max;
+    }
+
+    location / {
+
+    }
+
+}
+</code></pre><h3 id=重启-nginx>重启 Nginx</h3><pre><code>service nginx restart
+</code></pre><h3 id=定期更新证书可以配置成系统定时任务>定期更新证书,可以配置成系统定时任务</h3><div class=highlight><pre style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-sh data-lang=sh>./certbot-auto renew
+</code></pre></div></div><div class=post_footer><div class=meta><div class=info><span class="field tags"><i class=remixicon-stack-line></i><a href=https://sanoon.me/tags/https/>Https</a>
+<a href=https://sanoon.me/tags/certbot/>Certbot</a>
+<a href=https://sanoon.me/tags/nginx/>Nginx</a>
+<span id=busuanzi_container_page_pv>已被阅读&nbsp;<span id=busuanzi_value_page_pv></span>&nbsp;次</span></span></div></div></div><div class=preAndNext style=margin-top:20px><span><font color=red>Prev: </font><a class=previous href=https://sanoon.me/posts/hexo-%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/>Hexo 搭建博客</a></span>
+<span><font color=red>Next: </font><a class=next href=https://sanoon.me/posts/git-%E8%87%AA%E5%8A%A8%E5%8C%96%E6%9B%B4%E6%96%B0%E6%9C%AC%E5%9C%B0%E4%BB%A3%E7%A0%81%E8%84%9A%E6%9C%AC/>Git 自动化更新本地代码脚本</a></span></div></div><div class=doc_comments><div class=comments_block_title>发表评论</div><div id=vcomments></div></div><link rel=stylesheet href=https://sanoon.me/css/comments.css><script src=//cdn1.lncld.net/static/js/3.0.4/av-min.js></script><script src=//unpkg.com/valine/dist/Valine.min.js></script><script type=text/javascript>new Valine({el:'#vcomments',appId:'OLqTxeg1gvrPJ1ACgxP00SRd-MdYXbMMI',appKey:'64y2gAzoOfgjrFS083wLDKsA',placeholder:' ',visitor:'true',})</script></div></div><a id=back_to_top href=# class=back_to_top><span>△</span></a></div><footer class=footer><div class=powered_by><a href=https://zeuk.me>Designed by Zeuk,</a>
+<a href=http://www.gohugo.io/>Proudly published with Hugo</a></div><div class=footer_slogan><span>时间改变了很多也什么都没有, 让我再次拥抱你废都.</span>
+<span id=busuanzi_container_site_pv>已被访问&nbsp;<span id=busuanzi_value_site_pv></span>&nbsp;次</span></div><div class=footer_slogan style=margin-top:-10px><span>友情链接：&nbsp;<a href=https://lemoniu.me>柠檬菇凉</a></span></div></footer><script src=https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js></script><script src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.3/zozo.js></script><script src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.3/highlight.pack.js></script><link href=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.1/fancybox.min.css rel=stylesheet><script src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.3/fancybox.min.js></script><script>hljs.initHighlightingOnLoad()</script><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><script type=text/javascript async src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\[\[','\]\]']],processEscapes:true,processEnvironments:true,skipTags:['script','noscript','style','textarea','pre'],TeX:{equationNumbers:{autoNumber:"AMS"},extensions:["AMSmath.js","AMSsymbols.js"]}}});MathJax.Hub.Queue(function(){var all=MathJax.Hub.getAllJax(),i;for(i=0;i<all.length;i+=1){all[i].SourceElement().parentNode.className+=' has-jax';}});</script><style>code.has-jax{font:inherit;font-size:100%;background:inherit;border:inherit;color:#515151}</style><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-163559575-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
