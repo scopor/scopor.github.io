@@ -790,5 +790,10 @@ th.specalt {
 @media only screen and (max-width:479px){
   .iframevideo { height: 250px; }
 }
+
+.meta .remixicon-stack-line {
+  vertical-align: -3px;
+  margin-right: 5px;
+}
 /*animation ends*/
 /*# sourceMappingURL=zozo.css.map */
