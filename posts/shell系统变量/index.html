@@ -3,8 +3,8 @@
 $#	 命令行参数的总个数
 $0	 当前运行程序的名称
 $?	 前一个命令或函数的返回码，0 表示成功， 1 表示失败
-$*	 以&quot;参数1 参数2 ... &quot; 形式保存所有参数，循环时，会将参数分割打印 1 次
-$@	 以&quot;参数1&quot; &quot;参数2&quot; ... 形式保存所有参数，循环时，会将参数分割打印 $# 次
+$*	 以&quot;参数1 参数2 ... &quot; 形式保存所有参数，循环时，将参数当做一个整体打印 1 次
+$@	 以&quot;参数1&quot; &quot;参数2&quot; ... 形式保存所有参数，循环时，将参数分割打印 $# 次
 $$	 本程序的(进程 ID 号) PID
 $!	 上一个命令的 PID
 </code></pre><p>对于如下脚本 <code>demo.sh</code></p><pre><code>#!/bin/bash
@@ -16,6 +16,16 @@ echo $*
 echo $@
 echo $!
 echo $$
+
+for var in &quot;$*&quot;
+do
+    echo &quot;$var&quot;
+done
+
+for var in &quot;$@&quot;
+do
+    echo &quot;$var&quot;
+done
 </code></pre><p>执行 <code>./demo.sh one two</code>，结果显示</p><pre><code>2
 one
 ./demo.sh
@@ -24,6 +34,9 @@ one two
 one two
 
 741
+one two
+one
+two
 </code></pre></div><div class=post_footer><div class=meta><div class=info><span class="field tags"><i class=remixicon-stack-line></i><a href=https://sanoon.me/tags/shell/>shell</a>
 <span id=busuanzi_container_page_pv>已被喵了&nbsp;<span id=busuanzi_value_page_pv></span>&nbsp;次</span></span></div></div></div><div class=preAndNext style=margin-top:20px><span><font color=red>Prev: </font><a class=previous href=https://sanoon.me/whisper/%E7%84%96%E9%94%85/>焖锅</a></span></div><script async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><ins class=adsbygoogle style=display:block data-ad-client=ca-pub-6765261154701378 data-ad-slot=8034548941 data-ad-format=auto data-full-width-responsive=true></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div><div class=doc_comments><div class=comments_block_title>发表评论</div><div id=vcomments></div></div><link rel=stylesheet href=https://sanoon.me/css/comments.css><script src=//cdn1.lncld.net/static/js/3.0.4/av-min.js></script><script src=//unpkg.com/valine/dist/Valine.min.js></script><script type=text/javascript>new Valine({el:'#vcomments',appId:'OLqTxeg1gvrPJ1ACgxP00SRd-MdYXbMMI',appKey:'64y2gAzoOfgjrFS083wLDKsA',placeholder:' ',visitor:'true',})</script><img alt=今日诗词 src=https://v2.jinrishici.com/one.svg style="max-width:100%;display:block;margin:0 auto;padding-bottom:30px"></div></div><a id=back_to_top href=# class=back_to_top><span>△</span></a></div><footer class=footer><div class=powered_by><a href=https://zeuk.me>Designed by Zeuk,</a>
 <a href=http://www.gohugo.io/>Proudly published with Hugo</a></div><div class=footer_slogan><span>Copyright @ 2019 - 2020. Sanoon, Inc.</span>
