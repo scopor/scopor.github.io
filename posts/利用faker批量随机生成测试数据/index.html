@@ -331,6 +331,39 @@ datetime.datetime(1994, 11, 30, 18, 1, 29), 'etpYZeNJmIrIiZuprNgr', 6333)
 faker.json(data_columns=[('id', 'pyint', {'max_value':20}), ('name', 'pystr')], num_rows=3)
 faker.json(data_columns=[('id', 'pyint'), ('details', (('name', 'email'), ))], num_rows=3)
 faker.json(data_columns=[('id', 'pyint'), ('details', [(None, 'user_name'), ])], num_rows=3)
+</code></pre><h3 id=批量生成--sql--测试数据示例>批量生成 <code>SQL</code> 测试数据示例</h3><pre><code>&quot;&quot;&quot;
+ * Create At 2020/12/09
+ * TEST DATA
+&quot;&quot;&quot;
+
+from faker import Faker 
+
+class generate_data_to_txt(object):
+	def __init__(self):
+		# 选择中文
+		fake = Faker(&quot;zh_CN&quot;)
+		# 生成数据改变循环体来控制数据量rang(?)
+		self.data_total=[[fake.name(), fake.phone_number()] for x in range(10)]
+		print(self.data_total)
+
+	# 写入txt
+	def deal_txt(self):
+		with open('user_data.txt', 'w', errors='ignore', encoding='utf-8') as output:
+			output.write('INSERT INTO USERS (\'name\',\'phone\') VALUES \n')
+			for idx in range(len(self.data_total)):
+				user = self.data_total[idx]
+				rowtxt = '(\'{}\', \'{}\')'.format(user[0], user[1])
+				output.write(rowtxt)
+				if idx == len(self.data_total) - 1:
+					output.write(';\n')
+				else:
+					output.write(',\n')
+			output.close()
+		print(&quot;Processing completed to txt&quot;)
+
+if __name__ == '__main__':
+	data = generate_data_to_txt()
+	data.deal_txt()
 </code></pre></div><div class=post_footer><div class=meta><div class=info><span class="field tags"><i class=remixicon-stack-line></i><a href=https://sanoon.me/tags/python/>Python</a>
 <a href=https://sanoon.me/tags/faker/>Faker</a>
 <a href=https://sanoon.me/tags/%E6%89%B9%E9%87%8F/>批量</a>
