@@ -5,7 +5,7 @@
 public interface Seasons {
     void say();
 }
-</code></pre><h3 id=四季实现类>四季实现类</h3><pre><code>/**
+</code></pre><p>其次，我们创建四季的实现类，并让每个季节说出自己的特色。</p><h3 id=四季实现类>四季实现类</h3><pre><code>/**
  * 春
  */
 public class Spring implements Seasons {
@@ -40,7 +40,7 @@ public class Winter implements Seasons {
         System.out.println(&quot;冬有雪&quot;);
     }
 }
-</code></pre><h3 id=简单工厂类>简单工厂类</h3><pre><code>/**
+</code></pre><p>接着，我们定义一下工厂类，创建不同的季节。</p><h3 id=简单工厂类>简单工厂类</h3><pre><code>/**
  * 季节工厂
  */
 public class SeasonsFactory {
@@ -67,7 +67,7 @@ public class SeasonsFactory {
         }
     }
 }
-</code></pre><h3 id=客户端>客户端</h3><pre><code>public class Client {
+</code></pre><p>最后，对于客户来说，知道月份，想知道现在这个月份有什么美景，而不用关系具体是什么季节。</p><h3 id=客户端>客户端</h3><pre><code>public class Client {
     public static void main(String[] args) {
         Seasons seasons = SeasonsFactory.getSeasons(3);
         seasons.say();
