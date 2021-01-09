@@ -8,15 +8,15 @@ quit()
 </code></pre><h2 id=小试牛刀>小试牛刀</h2><p>现在我们来开始牛刀小试一下，创建项目文件夹 <code>movies</code>，进入到文件夹内，创建文件 <code>app.py</code>，内容如下</p><pre><code>from flask import Flask
 app = Flask(__name__)
 
-@app.route('/')
-def hello_world(name='Lemon'):
+@app.route('/&lt;name&gt;')
+def hello(name):
     return 'Hello {}'.format(name)
 </code></pre><p>打开 <code>Git Bash</code>，激活虚拟环境，执行安装 <code>Flask</code>，需要配置代理，配置在 <code>--proxy=</code> 后面即可</p><pre><code># 激活虚拟环境
 pipenv shell
 # 安装 Flask
 pipenv install flask --proxy=xxx
-</code></pre><p>然后就可以使用 <code>Flask</code> 来运行我们的应用了，这里的端口默认是5000（可以不携带 <code>--port</code> 配置），我指定的 <code>5005</code></p><pre><code>flask run --port=5005
-</code></pre><p>打开你的浏览器，访问 <code>http://localhost:5005</code>，如果能看到 <code>Hello Lemon</code> ，说明运行成功了。</p></div><div class=post_footer><div class=meta><div class=info><span class="field tags"><i class=remixicon-stack-line></i><a href=https://sanoon.me/tags/flask/>Flask</a>
+</code></pre><p>然后就可以使用 <code>Flask</code> 来运行我们的应用了，这里的端口默认是 <code>5000</code>（可以不携带 <code>--port</code> 配置），我指定的 <code>5005</code></p><pre><code>flask run --port=5005
+</code></pre><p>打开你的浏览器，访问 <code>http://localhost:5005/Lemon</code>，如果能看到 <code>Hello Lemon</code> ，说明运行成功了。</p></div><div class=post_footer><div class=meta><div class=info><span class="field tags"><i class=remixicon-stack-line></i><a href=https://sanoon.me/tags/flask/>Flask</a>
 <a href=https://sanoon.me/tags/flask%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/>Flask开发笔记</a>
 <a href=https://sanoon.me/tags/python/>Python</a>
 <span id=busuanzi_container_page_pv>已被喵了&nbsp;<span id=busuanzi_value_page_pv></span>&nbsp;次</span></span></div></div></div><div class=preAndNext style=margin-top:20px><span><font color=red>Prev: </font><a class=previous href=https://sanoon.me/posts/%E8%AF%A6%E8%A7%A3%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E4%B9%8B%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/>详解工厂模式之工厂方法</a></span></div><script async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><ins class=adsbygoogle style=display:block data-ad-client=ca-pub-6765261154701378 data-ad-slot=8034548941 data-ad-format=auto data-full-width-responsive=true></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div><div class=doc_comments><div class=comments_block_title>发表评论</div><div id=vcomments></div></div><link rel=stylesheet href=https://sanoon.me/css/comments.css><script src=//cdn1.lncld.net/static/js/3.0.4/av-min.js></script><script src=//unpkg.com/valine/dist/Valine.min.js></script><script type=text/javascript>new Valine({el:'#vcomments',appId:'OLqTxeg1gvrPJ1ACgxP00SRd-MdYXbMMI',appKey:'64y2gAzoOfgjrFS083wLDKsA',placeholder:' ',visitor:'true',})</script><img alt=今日诗词 src=https://v2.jinrishici.com/one.svg style="max-width:100%;display:block;margin:0 auto;padding-bottom:30px"></div></div><a id=back_to_top href=# class=back_to_top><span>△</span></a></div><footer class=footer><div class=powered_by><a href=https://zeuk.me>Designed by Zeuk,</a>
