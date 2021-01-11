@@ -1,0 +1,74 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=pragma content="no-cache"><meta http-equiv=cache-control content="no-cache"><meta name=author content="Sanoon"><meta name=description content="今天给一个 Web 服务配置了 6000 端口，使用 chrome 访问不了，换了 IE 浏览器正常，深究之后得知，chrome 浏览器会将一些协议的端口视为非安全端口。"><meta name=keywords content="chrome,非安全端口,ERR_UNSAFE_PORT"><link rel=canonical href=https://sanoon.me/posts/Chrome%E9%9D%9E%E5%AE%89%E5%85%A8%E7%AB%AF%E5%8F%A3/><title>Chrome 非安全端口 | Sanoon with Lemon - Java, Go, Python, SpringBoot, Spring Cloud, Docker, Vue</title><link rel="shortcut icon" href=https://sanoon.me/images/favicon.ico><link rel=stylesheet href=https://sanoon.me/css/animate.min.css><link rel=stylesheet href=https://sanoon.me/css/remixicon.css><link rel=stylesheet href=https://sanoon.me/css/zozo.css><link rel=stylesheet href=https://sanoon.me/css/highlight.css><script data-ad-client=ca-pub-6765261154701378 async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></head><body><div class="main animated"><div class="nav_container animated fadeInDown"><div class=site_nav id=site_nav><ul><li><a href=/>首页</a></li><li><a href=/posts/>归档</a></li><li><a href=/whisper/>碎碎念</a></li><li><a href=/photo/>摄影</a></li><li><a href=/tags/>标签</a></li><li><a href=/about/>关于</a></li></ul></div><div class=menu_icon><a id=menu_icon><i class=remixicon-links-line></i></a></div></div><div class="header animated fadeInDown"><div class=site_title_container><div class=site_title><h1><a href=https://sanoon.me><span>Sanoon with Lemon</span>
+<img src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.0.3/logos.svg style=margin-top:-8px></a></h1></div><div class=description><p class=sub_title>Life with teacher Lemon.</p><div class=my_socials><a href=https://book.douban.com/people/lingluoyanchen/collect title=book target=_blank><i class=remixicon-book-fill></i></a><a href=https://sanoon.me/photo/ title=camera target=_blank><i class=remixicon-camera-fill></i></a><a href=https://github.com/scopor title=github target=_blank><i class=remixicon-github-fill></i></a><a href=https://movie.douban.com/people/lingluoyanchen/collect title=movie target=_blank><i class=remixicon-movie-fill></i></a><a href="https://music.163.com/#/my/m/music/playlist?id=97552201" title=music target=_blank><i class=remixicon-music-fill></i></a><a href=https://twitter.com/DesperadoYan title=twitter target=_blank><i class=remixicon-twitter-fill></i></a><a href=https://sanoon.me/index.xml type=application/rss+xml title=rss target=_blank><i class=remixicon-rss-fill></i></a></div></div></div></div><div class=content><div class=post_page><div class="post animated fadeInDown"><div class="post_title post_detail_title"><h2><a href=/posts/Chrome%E9%9D%9E%E5%AE%89%E5%85%A8%E7%AB%AF%E5%8F%A3/>Chrome 非安全端口</a></h2><span class=date>2020.03.20</span></div><div class="post_content markdown"><p>今天给一个 Web 服务配置了 6000 端口，使用 chrome 访问不了，换了 IE 浏览器正常，深究之后得知，chrome 浏览器会将一些协议的端口视为非安全端口。</p><h2 id=错误信息>错误信息</h2><pre><code>ERR_UNSAFE_PORT
+</code></pre><h2 id=解决方案>解决方案</h2><ul><li>更换端口</li><li>右键单击Chrome快捷方式 ➡ 目标 ➡ 在后面添加参数：&ndash;explicitly-allowed-ports=6000 （6000为目标端口号）</li></ul><h2 id=chrome-非安全端口列表>chrome 非安全端口列表</h2><pre><code>1, // tcpmux 
+7, // echo 
+9, // discard 
+11, // systat 
+13, // daytime 
+15, // netstat 
+17, // qotd 
+19, // chargen 
+20, // ftp data 
+21, // ftp access 
+22, // ssh 
+23, // telnet 
+25, // smtp 
+37, // time 
+42, // name 
+43, // nicname 
+53, // domain 
+77, // priv-rjs 
+79, // finger 
+87, // ttylink 
+95, // supdup 
+101, // hostriame 
+102, // iso-tsap 
+103, // gppitnp 
+104, // acr-nema 
+109, // pop2 
+110, // pop3 
+111, // sunrpc 
+113, // auth 
+115, // sftp 
+117, // uucp-path 
+119, // nntp 
+123, // NTP 
+135, // loc-srv /epmap 
+139, // netbios 
+143, // imap2 
+179, // BGP 
+389, // ldap 
+465, // smtp+ssl 
+512, // print / exec 
+513, // login 
+514, // shell 
+515, // printer 
+526, // tempo 
+530, // courier 
+531, // chat 
+532, // netnews 
+540, // uucp 
+556, // remotefs 
+563, // nntp+ssl 
+587, // stmp? 
+601, // ?? 
+636, // ldap+ssl 
+993, // ldap+ssl 
+995, // pop3+ssl 
+2049, // nfs 
+3659, // apple-sasl / PasswordServer 
+4045, // lockd 
+6000, // X11 
+6665, // Alternate IRC [Apple addition] 
+6666, // Alternate IRC [Apple addition] 
+6667, // Standard IRC [Apple addition] 
+6668, // Alternate IRC [Apple addition] 
+6669, // Alternate IRC [Apple addition]
+</code></pre></div><div class=post_footer><div class=meta><div class=info><span class="field tags"><i class=remixicon-stack-line></i><a href=https://sanoon.me/tags/chrome/>chrome</a>
+<a href=https://sanoon.me/tags/%E9%9D%9E%E5%AE%89%E5%85%A8%E7%AB%AF%E5%8F%A3/>非安全端口</a>
+<span id=busuanzi_container_page_pv>已被喵了&nbsp;<span id=busuanzi_value_page_pv></span>&nbsp;次</span></span></div></div></div><div class=preAndNext style=margin-top:20px><span><font color=red>Prev: </font><a class=previous href=https://sanoon.me/posts/SpringCloud%E4%BB%8B%E7%BB%8D/>Spring Cloud 介绍</a></span>
+<span><font color=red>Next: </font><a class=next href=https://sanoon.me/posts/SpringCloud%E6%B3%A8%E5%86%8C%E4%B8%AD%E5%BF%83Eureka/>Spring Cloud Eureka 注册中心</a></span></div><script async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><ins class=adsbygoogle style=display:block data-ad-client=ca-pub-6765261154701378 data-ad-slot=8034548941 data-ad-format=auto data-full-width-responsive=true></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div><div class=doc_comments><div class=comments_block_title>发表评论</div><div id=vcomments></div></div><link rel=stylesheet href=https://sanoon.me/css/comments.css><script src=//cdn1.lncld.net/static/js/3.0.4/av-min.js></script><script src=//unpkg.com/valine/dist/Valine.min.js></script><script type=text/javascript>new Valine({el:'#vcomments',appId:'OLqTxeg1gvrPJ1ACgxP00SRd-MdYXbMMI',appKey:'64y2gAzoOfgjrFS083wLDKsA',placeholder:' ',visitor:'true',})</script><img alt=今日诗词 src=https://v2.jinrishici.com/one.svg style="max-width:100%;display:block;margin:0 auto;padding-bottom:30px"></div></div><a id=back_to_top href=# class=back_to_top><span>△</span></a></div><footer class=footer><div class=powered_by><a href=https://zeuk.me>Designed by Zeuk,</a>
+<a href=http://www.gohugo.io/>Proudly published with Hugo</a></div><div class=footer_slogan><span>Copyright @ 2019 - 2020. Sanoon, Inc.</span>
+<span id=busuanzi_container_site_pv>已被喵了&nbsp;<span id=busuanzi_value_site_pv></span>&nbsp;次</span></div><div class=footer_slogan style=margin-top:-10px><span><a href=https://lemoniu.me>柠檬菇凉</a></span>
+<span><a href=https://books.halfrost.com/leetcode/>LeetCode</a></span>
+<span><a href=https://xinpianchang.com>新片场</a></span></div></footer><script src=https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js></script><script src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.3/zozo.js></script><script src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.3/highlight.pack.js></script><link href=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.1/fancybox.min.css rel=stylesheet><script src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.3/fancybox.min.js></script><script>hljs.initHighlightingOnLoad()</script><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><script type=text/javascript async src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\[\[','\]\]']],processEscapes:true,processEnvironments:true,skipTags:['script','noscript','style','textarea','pre'],TeX:{equationNumbers:{autoNumber:"AMS"},extensions:["AMSmath.js","AMSsymbols.js"]}}});MathJax.Hub.Queue(function(){var all=MathJax.Hub.getAllJax(),i;for(i=0;i<all.length;i+=1){all[i].SourceElement().parentNode.className+=' has-jax';}});</script><style>code.has-jax{font:inherit;font-size:100%;background:inherit;border:inherit;color:#515151}</style><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-163559575-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>

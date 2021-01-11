@@ -1,0 +1,374 @@
+<!doctype html><html lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><meta name=viewport content="width=device-width,initial-scale=1"><meta http-equiv=pragma content="no-cache"><meta http-equiv=cache-control content="no-cache"><meta name=author content="Sanoon"><meta name=description content="我们在开发过程中经常会遇到一些需要构造大批量数据的场景，开发者或使用 SQL 批量复制，或是专门写个程序跑一批数据，也有使用 Excel 下拉生成构造的，今天我们来介绍一款 Python 库，名叫 Faker，专门用来生成测试数据的，本文主要介绍下 Faker 的主要 API。"><meta name=keywords content="Python,Faker,批量生成测试数据,随机造假数据"><link rel=canonical href=https://sanoon.me/posts/%E5%88%A9%E7%94%A8Faker%E6%89%B9%E9%87%8F%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE/><title>利用 Faker 批量随机生成测试数据 | Sanoon with Lemon - Java, Go, Python, SpringBoot, Spring Cloud, Docker, Vue</title><link rel="shortcut icon" href=https://sanoon.me/images/favicon.ico><link rel=stylesheet href=https://sanoon.me/css/animate.min.css><link rel=stylesheet href=https://sanoon.me/css/remixicon.css><link rel=stylesheet href=https://sanoon.me/css/zozo.css><link rel=stylesheet href=https://sanoon.me/css/highlight.css><script data-ad-client=ca-pub-6765261154701378 async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script></head><body><div class="main animated"><div class="nav_container animated fadeInDown"><div class=site_nav id=site_nav><ul><li><a href=/>首页</a></li><li><a href=/posts/>归档</a></li><li><a href=/whisper/>碎碎念</a></li><li><a href=/photo/>摄影</a></li><li><a href=/tags/>标签</a></li><li><a href=/about/>关于</a></li></ul></div><div class=menu_icon><a id=menu_icon><i class=remixicon-links-line></i></a></div></div><div class="header animated fadeInDown"><div class=site_title_container><div class=site_title><h1><a href=https://sanoon.me><span>Sanoon with Lemon</span>
+<img src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.0.3/logos.svg style=margin-top:-8px></a></h1></div><div class=description><p class=sub_title>Life with teacher Lemon.</p><div class=my_socials><a href=https://book.douban.com/people/lingluoyanchen/collect title=book target=_blank><i class=remixicon-book-fill></i></a><a href=https://sanoon.me/photo/ title=camera target=_blank><i class=remixicon-camera-fill></i></a><a href=https://github.com/scopor title=github target=_blank><i class=remixicon-github-fill></i></a><a href=https://movie.douban.com/people/lingluoyanchen/collect title=movie target=_blank><i class=remixicon-movie-fill></i></a><a href="https://music.163.com/#/my/m/music/playlist?id=97552201" title=music target=_blank><i class=remixicon-music-fill></i></a><a href=https://twitter.com/DesperadoYan title=twitter target=_blank><i class=remixicon-twitter-fill></i></a><a href=https://sanoon.me/index.xml type=application/rss+xml title=rss target=_blank><i class=remixicon-rss-fill></i></a></div></div></div></div><div class=content><div class=post_page><div class="post animated fadeInDown"><div class="post_title post_detail_title"><h2><a href=/posts/%E5%88%A9%E7%94%A8Faker%E6%89%B9%E9%87%8F%E9%9A%8F%E6%9C%BA%E7%94%9F%E6%88%90%E6%B5%8B%E8%AF%95%E6%95%B0%E6%8D%AE/>利用 Faker 批量随机生成测试数据</a></h2><span class=date>2020.12.09</span></div><div class="post_content markdown"><p>我们在开发过程中经常会遇到一些需要构造大批量数据的场景，开发者或使用 <code>SQL</code> 批量复制，或是专门写个程序跑一批数据，也有使用 <code>Excel</code> 下拉生成构造的，今天我们来介绍一款 <code>Python</code> 库，名叫 <code>Faker</code>，专门用来生成测试数据的，本文主要介绍下 <code>Faker</code> 的主要 <code>API</code>。</p><p>​</p><p>我们需要先安装下 <code>Faker</code></p><pre><code>pip install Faker
+</code></pre><p>下面我们使用命令行来做一些简单的 <code>API</code> 测试</p><pre><code>$ python
+Python 3.8.0 (tags/v3.8.0:fa919fd, Oct 14 2019, 19:37:50) [MSC v.1916 64 bit (AMD64)] on win32
+Type &quot;help&quot;, &quot;copyright&quot;, &quot;credits&quot; or &quot;license&quot; for more information.
+# 导入工具库
+&gt;&gt;&gt; from faker import Factory 
+&gt;&gt;&gt; from faker.providers import BaseProvider, internet
+&gt;&gt;&gt; from random import randint
+&gt;&gt;&gt; from collections import OrderedDict
+&gt;&gt;&gt; from datetime import datetime, date 
+# 初始化
+&gt;&gt;&gt; faker = new Faker() 
+# 随机一个地址
+&gt;&gt;&gt; faker.address()           
+'965 Jimenez Light\nAmandamouth, DE 73645'
+# 随机城市
+&gt;&gt;&gt; faker.city()              
+'Aprilborough'
+# 随机日期
+&gt;&gt;&gt; faker.date()              
+'2007-02-04'
+# UUID 
+&gt;&gt;&gt; faker.uuid4()
+'b32b34db-dfc8-4824-91a5-4d5b10662ad7'
+</code></pre><p>是不是很方便，当然以上只是牛刀小试，下面按照 <code>API</code> 分类详细介绍下</p><h3 id=网络参数>网络参数</h3><pre><code># Mozilla/5.0 (X11; Linux i686) AppleWebKit/534.1 (KHTML, like Gecko) Chrome/57.0.853.0 Safari/534.1
+faker.chrome()
+faker.safari()
+faker.user_agent()             # Opera/8.17.(Windows NT 5.01; rw-RW) Presto/2.9.186 Version/10.00
+faker.mac_processor()          # 'PPC'
+faker.firefox()
+faker.linux_processor()        # i686
+faker.windows_platform_token() # Windows 98; Win 9x 4.90
+faker.mac_platform_token()     # Macintosh; U; PPC Mac OS X 10_6_6
+faker.linux_platform_token()   # X11; Linux x86_64
+# 邮箱
+faker.email()                 # alexandra12@smith.net
+faker.free_email()            # emilyturner@hotmail.com
+faker.ascii_email()           # william06@thompson.com
+faker.safe_email()            # ballrandy@example.net
+faker.ascii_free_email()      # carsonnicole@gmail.com
+faker.ascii_safe_email()      # joshuadurham@example.org
+faker.company_email()         # qweber@davis.com
+faker.ascii_company_email()   # crystal83@hill-cox.com
+# 域名
+faker.domain_name()           # smith.biz
+faker.domain_name(levels=2)   # 二级域名, henderson.terry.com
+faker.safe_domain_name()      # example.net
+faker.free_email_domain()     # gmail.com
+faker.hostname()              # web-57.shaw.net
+faker.hostname(levels=2)      # laptop-42.williams-robinson.alexander-marsh.com
+faker.tld()                   # 顶级域名, com
+# HTTP 方法
+faker.http_method()           # PUT
+# IP 地址
+faker.ipv4()                  # 70.188.69.124
+faker.ipv4(network=False, address_class='a', private=True)         # 10.244.139.123
+faker.ipv4_private()          # 内网 IP，10.139.106.228
+faker.ipv4_public()           # 公网 IP，205.108.133.200
+faker.ipv6()                  # de0a:3333:3d14:9317:4350:1448:ff92:fb4f
+# MAC 地址
+faker.mac_address()           # f4:22:17:c6:73:05
+# 端口号
+faker.port_number()           # 5863
+faker.port_number(is_system=False, is_user=True, is_dynamic=False) # 17205
+# 图片链接
+faker.image_url()             # https://placeimg.com/505/213/any
+faker.image_url(width=800, height=600)  # https://placekitten.com/800/600
+# URL 地址
+faker.url()                   # https://maldonado.com/
+faker.uri()                   # http://castillo-hurst.com/main.php
+faker.uri_path(deep=3)        # category/wp-content/posts
+# 用户名
+faker.user_name()             # gwebb
+# 密码
+faker.password()              # *!8+VEOk5A
+faker.password(length=7, special_chars=True, digits=True, upper_case=True, lower_case=True) # e&amp;P5RxQ
+</code></pre><h3 id=日期参数>日期参数</h3><pre><code>faker.am_pm()                 # 随机 AM、PM
+faker.date()                  # 随机日期 2020-12-09
+faker.date_between()          # 随机日期 30年前 - 今天，datetime.date(1989, 6, 4)
+faker.date_between(start_date='-1y', end_date='today') # 随机 1年前 - 今天，datetime.date(2020, 4, 3)
+faker.date_between_dates(date_start=date(2020, 1, 1))  # 从某日期启随机 datetime.date(2020, 3, 23)
+faker.date_between_dates(date(2020, 1, 1), date(2021, 1, 1)) # 起止日期间随机 datetime.date(2020, 10, 7)
+faker.date_of_birth(minimum_age=18, maximum_age=30)    # 随机年龄对应的日期，datetime.date(1998, 3, 21)
+faker.date_this_month()       # 本的某个日期且在今天之前 datetime.date(2020, 12, 7)
+faker.date_this_month(before_today=True, after_today=True) # 本某个日期，datetime.date(2020, 12, 22)
+faker.date_this_year()        # 今年的某个日期 datetime.date(2020, 5, 12)
+faker.date_this_year(before_today=True, after_today=False) # datetime.date(2020, 12, 30)
+faker.date_time_between()     # 日期 + 时间，datetime.datetime(2008, 12, 6, 23, 26, 2)
+# 一年前到今天期间的某个日期时间，datetime.datetime(2020, 5, 7, 2, 32, 18)
+faker.date_time_between(start_date='-1y', end_date='now') 
+faker.date_time_between_dates() # 随机时间点 datetime.datetime(2020, 12, 9, 14, 33, 32)
+# 给定范围的随机时间点
+faker.date_time_between_dates(datetime(2013, 2, 8, 15, 53, 19), datetime(2016, 6, 1, 23, 33, 57)) 
+faker.day_of_month()          # 某天 12
+faker.month()                 # 某月 05
+faker.year()                  # 某年 2020
+faker.month_name()            # 某个月份名 April
+faker.day_of_week()           # 周几 Wednesday
+faker.future_date()           # 未来某天 datetime.date(2021, 05, 12)
+faker.future_date(end_date='+3d')     # datetime.date(2020, 12, 11)
+faker.future_datetime(end_date='+3d') # datetime.datetime(2020, 12, 11, 3, 42, 21)
+faker.past_date()             # 过去某天 datetime.date(2020, 11, 10)
+faker.past_date(start_date='-3d') # 过去3天到现在随机日期 datetime.date(2020, 12, 06)
+faker.past_datetime(start_date='-3d') # 过去3天到现在随机时间 datetime.datetime(2020, 12, 8, 7, 29, 53)
+faker.timezone()              # 随机时区 Europe/Bucharest
+faker.unix_time()             # 随机时间戳 727373929
+faker.unix_time(start_datetime=datetime(2020,5,12)) # 设置开始时间，随机时间戳 1589340837
+</code></pre><h3 id=文件参数>文件参数</h3><pre><code>faker.file_extension()        # 文件后缀 mov
+faker.file_name()             # 文件名 forget.mov
+faker.file_name(category='image', extension='jpeg')   # 指定文件类型 serious.jpeg
+faker.file_path()             # 文件路径 together/consider.csv
+faker.file_path(depth=3, category='image', extension='jpeg')  # /什么/人员/详细/欢迎.jpeg
+faker.mime_type()             # 网络传输文件类型 application/EDIFACT
+# category – application|audio|image|message|model|multipart|text|video
+faker.mime_type(category='image') # 指定类型的网络传输文件 image/jpeg
+faker.tar(uncompressed_size=256, num_files=4, min_file_size=32) # 压缩文件 tar格式
+faker.zip(uncompressed_size=256, num_files=4, min_file_size=32) # 压缩文件 zip格式
+# 指定压缩格式   deflate|gzip|gz  bzip2|bz2  lzma|xz
+faker.zip(uncompressed_size=256, num_files=32, min_file_size=4, compression='bz2') 
+</code></pre><h3 id=地址参数>地址参数</h3><pre><code>faker.coordinate()            # 随机坐标 Decimal('-130.832406')
+faker.latitude()              # 随机纬度 Decimal('31.708248')
+faker.longitude()             # 随机经度 Decimal('20.162607')
+faker.latlng()                # 随机纬度 + 经度 (Decimal('69.9854005'), Decimal('101.358041'))
+# 随机城市坐标 ('45.0408', '-93.263', 'Columbia Heights', 'US', 'America/Chicago')
+faker.local_latlng()          
+# 随机中国坐标('38.40917', '112.73333', 'Xinzhou', 'CN', 'Asia/Shanghai')
+faker.local_latlng(country_code='CN') 
+# 随机陆地坐标 ('43.2907', '5.4384', 'Marseille 11', 'FR', 'Europe/Paris')
+faker.location_on_land()
+faker.language_code()         # 语言代码 st
+faker.locale()                # nan_TW
+# 英文地址
+faker.address()               # 随机地址 '47589 Robert Mountains Apt. 114\nSouth Elizabeth, CT 51107'
+faker.building_number()       # 随机楼号 176
+faker.city()                  # 随机城市 Virginiafort
+faker.city_suffix()           # 随机行政单位 stad
+faker.country()               # 随机国家 Chad
+faker.country_code()          # 随机国家代码 PK
+faker.postcode()              # 随机邮编 57008
+faker.street_address()        # 随机街道地址 452 Nunez Street
+faker.street_name()           # 随机路名 Jessica Mills
+faker.street_suffix()         # 街道后缀 Course
+# 中文地址
+faker.address()               # 随机地址 吉林省志强市黄浦六盘水路q座 939105
+faker.building_number()       # 随机楼号 q座
+faker.city()                  # 随机城市 志强市
+faker.city_suffix()           # 随机行政单位 市
+faker.country()               # 随机国家 卡塔尔
+faker.country_code()          # 随机国家代码 BA
+faker.postcode()              # 随机邮编 690590
+faker.street_address()        # 随机街道地址 北京街S座
+faker.street_name()           # 随机路名 贵阳路
+faker.street_suffix()         # 街道后缀 街
+</code></pre><h3 id=个人信息参数>个人信息参数</h3><pre><code># 中文信息
+faker.name()                  # 范玉英
+faker.name_female()           # 女性名字 张桂花
+faker.name_male()             # 男性名字 陆俊
+faker.last_name()             # 姓 梅
+faker.first_name()            # 名 华
+faker.first_name_female()     # 女性名字 畅
+faker.first_name_male()       # 男性名字 彬
+faker.phone_number()          # 电话号码 13842898234
+faker.country_calling_code()  # 国家 +86
+faker.credit_card_expire()    # 随机信用卡过期时间 09/28
+faker.credit_card_full()      # 完整信用卡 Discover\n雪梅 吴\n6011469693162779 06/22\nCVC: 915\n
+faker.credit_card_number()    # 信用卡号 060443996040
+faker.company()               # 随机公司名称 艾提科信信息有限公司
+faker.profile()               # 随机个人信息JSON格式
+{
+'job': '影视/媒体', 'company': '合联电子信息有限公司', 'ssn': '150825196103071663', 
+'residence': '新疆维吾尔自治区金凤市丰都戴路J座 421445', 
+'current_location': (Decimal('-73.806660'), Decimal('72.351204')), 
+'blood_group': 'AB-', 
+'website': ['https://www.jun.cn/', 'http://www.zz.net/', 'https://www.pl.cn/', 'http://tao.cn/'],
+'username': 'yonglin', 'name': '萧坤', 'sex': 'M', 'address': '江苏省玉梅市山亭哈尔滨街G座 244939',
+'mail': 'fangshao@hotmail.com', 'birthdate': datetime.date(1964, 11, 7)
+}
+
+faker.simple_profile()        # 随机简易个人信息JSON格式
+{
+'username': 'na61', 'name': '黄晨', 'sex': 'F', 
+'address': '上海市桂芳县孝南芦路m座 407635', 'mail': 'zgong@gmail.com', 
+'birthdate': datetime.date(1992, 10, 1)
+}
+</code></pre><h3 id=颜色参数>颜色参数</h3><pre><code># 随机某个色系颜色 monochrome|red|orange|yellow|green|blue|purple|pink
+faker.color(hue='monochrome')                                       # #383838
+# 随机亮色
+faker.color(luminosity='light')                                     # #bff3ff
+# 颜色格式 hex|rgb|hsv|hsl
+faker.color(hue=(100, 200), color_format='rgb')                     # rgb(87, 219, 182)
+faker.color(hue=135, luminosity='dark', color_format='hsv')         # hsv(135, 90, 67)
+faker.color(hue=(300, 20), luminosity='random', color_format='hsl') # hsl(177, 90, 7)
+# 随机颜色名称
+faker.color_name()                                                  # MidnightBlue
+# 随机16进制颜色
+faker.hex_color()                                                   # #1a8ec7
+# 随机rgb颜色
+faker.rgb_color()                                                   # 118,146,224
+# 随机css格式rgb颜色
+faker.rgb_css_color()                                               # rgb(117,192,4)
+# 随机安全色名称
+faker.safe_color_name()                                             # aqua
+faker.safe_hex_color()                                              # #663300
+</code></pre><h3 id=文本参数>文本参数</h3><pre><code># 一句文本
+faker.paragraph()    
+# 十句文本
+faker.paragraph(nb_sentences=10, variable_nb_sentences=True, ext_word_list=None)
+# 多段文本列表
+faker.paragraphs()
+# 十段文本列表
+faker.paragraphs(nb=10, ext_word_list=None)
+# 一句话
+faker.sentence()
+faker.sentence(nb_words=10, variable_nb_words=True, ext_word_list=None)
+# 几句话列表
+faker.sentences()
+faker.sentences(nb=10, ext_word_list=None)
+# 文本
+faker.text()
+faker.text(max_nb_chars=100, ext_word_list=None)
+# 文本列表
+faker.texts()
+faker.texts(nb_texts=10, max_nb_chars=200, ext_word_list=None)
+# 单词
+faker.word()
+# 单词列表
+faker.words(nb=10, ext_word_list=None, unique=False)
+</code></pre><h3 id=随机数>随机数</h3><pre><code># MD5
+faker.md5()                   # 72780389dea9129e7f1af7dbbdc9d845
+faker.md5(raw_output=True)    # 二进制 b'\xa5-\xac\xc2\xc4.\x05y&lt;\xcb\xff,\x1b\x889\xe2'
+# SHA1 | SHA256
+faker.sha1()                  # 5901da5989603fd2d51ae3b048aef2a8d909a34b
+faker.sha256()                # 3dd379bbf6a0282eed73f72f47117ac090e1fcbd41314920eb3d1a51e76c2d1e
+# UUID
+faker.uuid4()                 # 31ce90a8-a124-4d52-988f-39625c067af2
+
+faker.random_digit()          # 1位随机数  0-9 
+faker.random_digit_not_null() # 1位随机数  1-9
+faker.random_digit_not_null_or_empty() # 1位随机数或空格  1-9
+faker.random_digit_or_empty() # 1位随机数或空格  0-9
+
+faker.random_letter()           # 随机字母 a-z A-Z
+faker.random_lowercase_letter() # 随机小写字母
+faker.random_uppercase_letter() # 随机大写字母
+faker.random_letters()          # 随机字母列表 ['G', 'b', 'O']
+faker.random_letters(length=6)  # 随机指定长度字母列表 ['v', 'I', 'Q', 'j', 'a', 'n']
+
+faker.random_int()                              # 随机数字
+faker.random_int(min=100, max=200)              # 随机数字,指定范围
+faker.random_int(min=0, max=15, step=3)         # 随机数字，按照步长
+faker.random_number()                           # 长度随机 507298
+faker.random_number(digits=3)                   # 长度固定 985
+
+# 指定范围数字
+faker.randomize_nb_elements(number=100)                   # 默认 60% - 140% 139
+faker.randomize_nb_elements(number=100, le=True)          # 60% - 100% 
+faker.randomize_nb_elements(number=100, ge=True)          # 100% -140%
+faker.randomize_nb_elements(number=100, le=True, max=80)  # 60% - max
+faker.randomize_nb_elements(number=100, ge=True, min=120) # min - 140%
+
+# 组成随机列表
+faker.random_choices(elements=('a', 'b', 'c', 'd', 'e'))             # ['c', 'a', 'd', 'e']
+faker.random_choices(elements=('a', 'b', 'c', 'd', 'e'), length=3)   # ['b', 'e', 'e']
+# 设置出现概率
+faker.random_choices(elements=OrderedDict([(&quot;a&quot;, 0.45), (&quot;b&quot;, 0.35), (&quot;c&quot;, 0.15), (&quot;d&quot;, 0.05), ]))    
+# 随机列表, 不重复
+faker.random_sample(elements=('a', 'b', 'c', 'd', 'e', 'f'), length=3) # ['e', 'f', 'd']
+# 随机元素
+faker.random_element(elements=('a', 'b', 'c', 'd'))                  # d
+# 随机元素不重复
+faker.random_elements(elements=('a', 'b', 'c', 'd'), unique=True)    # ['c']
+faker.random_elements(elements=OrderedDict([(&quot;a&quot;,0.45),(&quot;b&quot;,0.55),]),length=1,unique=True) # ['a']
+
+# 格式化输出 数字 + 字符 0-9
+faker.bothify(letters='ABCDE')                                       # 35 EB
+faker.bothify(text='Product Number: ????-########')                  # Product Number: EzOn-05258464
+faker.bothify(text='Product Number: ????-########', letters='ABCDE') # Product Number: ADEA-82375040
+# 格式化输出 字符
+faker.lexify(text='Random password: ??????????')                     # Random password: hvsIyuPdiX
+faker.lexify(text='Random password: ??????????', letters='ABCDE')    # Random password: BCEAEABEDA
+# 格式化输出 数字 #0-9 %1-9 !0-9空格 @1-9空格
+faker.numerify(text='Intel Core i%-%%##K')                           # Intel Core i7-8695K
+# 格式化输出16进制数
+faker.hexify(text='MAC Address: ^^:^^:^^:^^:^^:^^')                  # MAC Address: 31:08:d5🇩🇪74:fe
+faker.hexify(text='MAC Address: ^^:^^:^^:^^:^^:^^', upper=True)      # MAC Address: 71:F4:37:8E:CD:79
+</code></pre><h3 id=按照数据类型随机数据>按照数据类型随机数据</h3><pre><code>faker.pybool()               # 随机布尔值 False|True
+faker.boolean()              # 随机布尔值 False|True
+faker.boolean(chance_of_getting_true=25) # 随机布尔值 False|True
+faker.pydecimal()            # Decimal('49.2242')
+faker.pydict()               # 随机字典
+{
+'公司': 'VbqdyRLRSLnphzFEVESF', '活动': 'xia12@01.cn', '关系': 'yan39@yahoo.com', 
+'点击': 'YlpoNVGycWosfAUeCxdQ', '任何': 'sUWNlzygCDDVurPfnhWV', 
+'质量': 'xUWTlCMzhuVHYCMmonae', '社会': 'JdVnZzwcXeKbicbxzzhw', '说明': 54.743
+}
+
+faker.pyfloat()              # 随机浮点数 5707415007812.74
+faker.pyfloat(left_digits=None, right_digits=None, positive=False, min_value=None, max_value=None)
+faker.pyint()                # 随机int类型 89
+faker.pyint(min_value=0, max_value=9999, step=1) # 随机int类型，指定范围，64
+faker.pyiterable()           # 随机迭代器
+('https://qj.cn/wp-content/blog/explore/faq.htm', 
+Decimal('-16163294571102.0'), 2051, 'btian@fangzou.cn', 
+datetime.datetime(1996, 1, 17, 7, 37, 14), 
+'MvdNzNiMQaFVmXGvGJyQ', 3879, 
+datetime.datetime(1991, 8, 18, 15, 31, 20), 'NDiwoNsCJJxtOWbVwbTO', 
+'jFwiBETMYEhGwhGPuXWy', 'RZhXEyyJOKXvvqYoNnYr', 
+datetime.datetime(1972, 5, 4, 18, 57, 35))
+
+faker.pylist()               # 随机列表
+[2805, Decimal('452366.66488296'), 'HNgylnYilEEndmhtZXnn', 'PIzVhvKWdsyPIKvfXuMh',
+'GKIoplnOCHVcdHnXekza', 'https://www.nalei.cn/category.jsp', 4392, 
+'leimeng@gmail.com', 'DwYjPIqLgqzWHRNIHLqY', 'GsLMSHiLGOeMPvXkmbiF', 
+datetime.datetime(1974, 3, 9, 2, 7, 6), 6610, 'pyjCSAlXjyVOwyDnawdy', 
+Decimal('7600753.32492')]
+
+faker.pyset()                # 随机set
+{'fOrZgOluQsfaDTCPjhLG', datetime.datetime(2013, 8, 9, 6, 11, 31), 
+'grYJxBYFxfUGKlarJLSF', 'kYcdpvFmjAKuGBdnrGIa', 'cvYnCzDwoVLJooVMJrLK', 
+Decimal('58999349155.556'), -933955.506381346}
+
+faker.pystr()                # 随机字符串 upiXYqagblMRbHYwNbou
+faker.pystr_format()         # 随机字符串，带格式 v6-6807429o
+faker.pystruct()             # 随机struct
+faker.pytuple()              # 随机tuple
+(Decimal('8220461042.6338'), 'wwcamUzOjRpiEEZaTBQt', 'yongcao@xiulanna.cn',
+Decimal('-15598244045554.3'), 'rIfHVzwcoVLMkJPyGlTI', 'rOFRBvgBnRjAPGdlwWmo',
+datetime.datetime(1994, 11, 30, 18, 1, 29), 'etpYZeNJmIrIiZuprNgr', 6333)
+</code></pre><h3 id=随机-json-数据>随机 <code>JSON</code> 数据</h3><pre><code># JSON [(字段名, 方法名, {方法参数})]
+faker.json(data_columns=[('id', 'pyint', {'max_value':20}), ('name', 'pystr')], num_rows=3)
+faker.json(data_columns=[('id', 'pyint'), ('details', (('name', 'email'), ))], num_rows=3)
+faker.json(data_columns=[('id', 'pyint'), ('details', [(None, 'user_name'), ])], num_rows=3)
+</code></pre><h3 id=批量生成--sql--测试数据示例>批量生成 <code>SQL</code> 测试数据示例</h3><pre><code>&quot;&quot;&quot;
+ * Create At 2020/12/09
+ * TEST DATA
+&quot;&quot;&quot;
+
+from faker import Faker 
+
+class generate_data_to_txt(object):
+	def __init__(self):
+		# 选择中文
+		fake = Faker(&quot;zh_CN&quot;)
+		# 生成数据改变循环体来控制数据量rang(?)
+		self.data_total=[[fake.name(), fake.phone_number()] for x in range(10)]
+		print(self.data_total)
+
+	# 写入txt
+	def deal_txt(self):
+		with open('user_data.txt', 'w', errors='ignore', encoding='utf-8') as output:
+			output.write('INSERT INTO USERS (\'name\',\'phone\') VALUES \n')
+			for idx in range(len(self.data_total)):
+				user = self.data_total[idx]
+				rowtxt = '(\'{}\', \'{}\')'.format(user[0], user[1])
+				output.write(rowtxt)
+				if idx == len(self.data_total) - 1:
+					output.write(';\n')
+				else:
+					output.write(',\n')
+			output.close()
+		print(&quot;Processing completed to txt&quot;)
+
+if __name__ == '__main__':
+	data = generate_data_to_txt()
+	data.deal_txt()
+</code></pre></div><div class=post_footer><div class=meta><div class=info><span class="field tags"><i class=remixicon-stack-line></i><a href=https://sanoon.me/tags/Python/>Python</a>
+<a href=https://sanoon.me/tags/Faker/>Faker</a>
+<span id=busuanzi_container_page_pv>已被喵了&nbsp;<span id=busuanzi_value_page_pv></span>&nbsp;次</span></span></div></div></div><div class=preAndNext style=margin-top:20px><span><font color=red>Prev: </font><a class=previous href=https://sanoon.me/posts/%E5%A6%82%E4%BD%95%E6%9D%80%E6%8E%89Windows%E4%B8%8B%E5%8D%A0%E7%94%A8%E6%9F%90%E7%AB%AF%E5%8F%A3%E7%9A%84%E8%BF%9B%E7%A8%8B/>如何杀掉 Windows 下占用某端口的进程</a></span>
+<span><font color=red>Next: </font><a class=next href=https://sanoon.me/posts/Linux%E6%96%87%E4%BB%B6%E5%88%86%E5%89%B2%E6%8A%80%E5%B7%A7/>Linux 文件分割技巧</a></span></div><script async src=https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js></script><ins class=adsbygoogle style=display:block data-ad-client=ca-pub-6765261154701378 data-ad-slot=8034548941 data-ad-format=auto data-full-width-responsive=true></ins><script>(adsbygoogle=window.adsbygoogle||[]).push({});</script></div><div class=doc_comments><div class=comments_block_title>发表评论</div><div id=vcomments></div></div><link rel=stylesheet href=https://sanoon.me/css/comments.css><script src=//cdn1.lncld.net/static/js/3.0.4/av-min.js></script><script src=//unpkg.com/valine/dist/Valine.min.js></script><script type=text/javascript>new Valine({el:'#vcomments',appId:'OLqTxeg1gvrPJ1ACgxP00SRd-MdYXbMMI',appKey:'64y2gAzoOfgjrFS083wLDKsA',placeholder:' ',visitor:'true',})</script><img alt=今日诗词 src=https://v2.jinrishici.com/one.svg style="max-width:100%;display:block;margin:0 auto;padding-bottom:30px"></div></div><a id=back_to_top href=# class=back_to_top><span>△</span></a></div><footer class=footer><div class=powered_by><a href=https://zeuk.me>Designed by Zeuk,</a>
+<a href=http://www.gohugo.io/>Proudly published with Hugo</a></div><div class=footer_slogan><span>Copyright @ 2019 - 2020. Sanoon, Inc.</span>
+<span id=busuanzi_container_site_pv>已被喵了&nbsp;<span id=busuanzi_value_site_pv></span>&nbsp;次</span></div><div class=footer_slogan style=margin-top:-10px><span><a href=https://lemoniu.me>柠檬菇凉</a></span>
+<span><a href=https://books.halfrost.com/leetcode/>LeetCode</a></span>
+<span><a href=https://xinpianchang.com>新片场</a></span></div></footer><script src=https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js></script><script src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.3/zozo.js></script><script src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.3/highlight.pack.js></script><link href=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.1/fancybox.min.css rel=stylesheet><script src=https://cdn.jsdelivr.net/gh/scopor/cdn@1.1.3/fancybox.min.js></script><script>hljs.initHighlightingOnLoad()</script><script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script><script type=text/javascript async src="https://cdn.bootcss.com/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML">MathJax.Hub.Config({tex2jax:{inlineMath:[['$','$'],['\\(','\\)']],displayMath:[['$$','$$'],['\[\[','\]\]']],processEscapes:true,processEnvironments:true,skipTags:['script','noscript','style','textarea','pre'],TeX:{equationNumbers:{autoNumber:"AMS"},extensions:["AMSmath.js","AMSsymbols.js"]}}});MathJax.Hub.Queue(function(){var all=MathJax.Hub.getAllJax(),i;for(i=0;i<all.length;i+=1){all[i].SourceElement().parentNode.className+=' has-jax';}});</script><style>code.has-jax{font:inherit;font-size:100%;background:inherit;border:inherit;color:#515151}</style><script type=application/javascript>var doNotTrack=false;if(!doNotTrack){window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;ga('create','UA-163559575-1','auto');ga('send','pageview');}</script><script async src=https://www.google-analytics.com/analytics.js></script></body></html>
