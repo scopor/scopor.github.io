@@ -12,26 +12,26 @@ app = Flask(__name__)
 </code></pre><h2 id=视图函数>视图函数</h2><p>实例化之后，我们需要实现一个可以访问的 <code>URL</code> 路径，在 <code>Flask</code> 中是通过定义视图函数来实现的，比如这里定义的函数 <code>hello</code> 就是一个视图函数，并且这个视图函数的名称是自由定义的，但必须在该文件内部唯一。</p><pre><code>@app.route('/&lt;name&gt;')
 def hello(name):
     return 'Hello {}'.format(name)
-</code></pre><p>可以访问的 <code>URL</code> 就是由路由 <code>@app.route('/')</code> 来定义实现的。</p><ul><li>当你访问 <code>http://localhost:5005/Lemon</code> 时，页面响应 <code>Hello Lemon</code></li></ul><h2 id=路由解析>路由解析</h2><p>这里只是传递了字符串，那么传递其他类型的参数时，路由都有哪些写法呢？我们来罗列一下</p><table><thead><tr><th>类型</th><th>路由</th></tr></thead><tbody><tr><td>string</td><td>不包含斜杠的文本</td></tr><tr><td>int</td><td>整数</td></tr><tr><td>float</td><td>浮点数</td></tr><tr><td>path</td><td>类似string，可以包含斜杠等特殊字符</td></tr><tr><td>uuid</td><td>支持传递一个uuid格式的字符串</td></tr></tbody></table><h3 id=string-类型的路由写法><code>string</code> 类型的路由写法</h3><pre><code>@app.route('/&lt;name&gt;')
+</code></pre><p>可以访问的 <code>URL</code> 就是由路由 <code>@app.route('/')</code> 来定义实现的。当你访问 <code>http://localhost:5005/Lemon</code> 时，页面响应 <code>Hello Lemon</code></p><h2 id=路由解析>路由解析</h2><p>这里只是传递了字符串，那么传递其他类型的参数时，路由都有哪些写法呢？我们来罗列一下</p><table><thead><tr><th>类型</th><th>路由</th></tr></thead><tbody><tr><td>string</td><td>不包含斜杠的文本</td></tr><tr><td>int</td><td>整数</td></tr><tr><td>float</td><td>浮点数</td></tr><tr><td>path</td><td>类似string，可以包含斜杠等特殊字符</td></tr><tr><td>uuid</td><td>支持传递一个uuid格式的字符串</td></tr></tbody></table><h3 id=string-类型的路由写法><code>string</code> 类型的路由写法</h3><pre><code>@app.route('/&lt;name&gt;')
 def hello(name):
     return 'Hello {}'.format(name)
-</code></pre><ul><li>访问 <code>http://localhost:5005/Lemon</code> ， 页面响应 <code>Hello Lemon</code></li></ul><h3 id=int-类型的路由写法><code>int</code> 类型的路由写法</h3><pre><code>@app.route('/int/&lt;int:num&gt;')
+</code></pre><p>访问 <code>http://localhost:5005/Lemon</code> ， 页面响应 <code>Hello Lemon</code></p><h3 id=int-类型的路由写法><code>int</code> 类型的路由写法</h3><pre><code>@app.route('/int/&lt;int:num&gt;')
 def hello(num):
     return 'Hello {}'.format(num)
-</code></pre><ul><li>访问 <code>http://localhost:5005/int/2021</code> ， 页面响应 <code>Hello 2021</code></li></ul><h3 id=float-类型的路由写法><code>float</code> 类型的路由写法</h3><pre><code>@app.route('/float/&lt;float:num&gt;')
+</code></pre><p>访问 <code>http://localhost:5005/int/2021</code> ， 页面响应 <code>Hello 2021</code></p><h3 id=float-类型的路由写法><code>float</code> 类型的路由写法</h3><pre><code>@app.route('/float/&lt;float:num&gt;')
 def hello_float(num):
     return 'Hello {}'.format(num)
-</code></pre><ul><li>访问 <code>http://localhost:5005/float/3.1415926</code> ， 页面响应 <code>Hello 3.1415926</code></li></ul><h3 id=path-类型的路由写法><code>path</code> 类型的路由写法</h3><pre><code>@app.route('/path/&lt;path:name&gt;')
+</code></pre><p>访问 <code>http://localhost:5005/float/3.1415926</code> ， 页面响应 <code>Hello 3.1415926</code></p><h3 id=path-类型的路由写法><code>path</code> 类型的路由写法</h3><pre><code>@app.route('/path/&lt;path:name&gt;')
 def hello_path(name):
     return 'Hello {}'.format(name)
-</code></pre><ul><li>访问 <code>http://localhost:5005/path/一蓑/烟雨</code> ， 页面响应 <code>Hello 一蓑/烟雨</code></li></ul><h3 id=uuid-类型的路由写法><code>uuid</code> 类型的路由写法</h3><pre><code>@app.route('/uuid/&lt;uuid:name&gt;')
+</code></pre><p>访问 <code>http://localhost:5005/path/一蓑/烟雨</code> ， 页面响应 <code>Hello 一蓑/烟雨</code></p><h3 id=uuid-类型的路由写法><code>uuid</code> 类型的路由写法</h3><pre><code>@app.route('/uuid/&lt;uuid:name&gt;')
 def hello_uuid(name):
     return 'Hello {}'.format(name)
-</code></pre><ul><li>访问 <code>http://localhost:5005/uuid/一蓑/烟雨</code> ， 页面响应 <code>Not Found</code>，参数格式不正确</li><li>此时必须传递 <code>uuid</code> 格式的字符串，正确访问 <code>http://localhost:5005/uuid/9503776e-3b43-4b06-be3f-1d99cbc06fc6</code></li></ul><p>如果我想在不传递的参数的时候，使用默认值来处理响应，该如何定义路由呢？我们可以针对视图函数指定多个路由规则，并指定默认值，写法如下</p><pre><code>@app.route('/')
+</code></pre><p>访问 <code>http://localhost:5005/uuid/一蓑/烟雨</code> ， 页面响应 <code>Not Found</code>，参数格式不正确</p><p>此时必须传递 <code>uuid</code> 格式的字符串，正确访问 <code>http://localhost:5005/uuid/9503776e-3b43-4b06-be3f-1d99cbc06fc6</code></p><p>如果我想在不传递的参数的时候，使用默认值来处理响应，该如何定义路由呢？我们可以针对视图函数指定多个路由规则，并指定默认值，写法如下</p><pre><code>@app.route('/')
 @app.route('/&lt;name&gt;')
 def hello(name='Lemon'):
     return 'Hello {}'.format(name)
-</code></pre><ul><li>访问 <code>http://localhost:5005/</code> ， 页面会响应 <code>Hello Lemon</code></li></ul><p>好了，关于 <code>Flask</code> 路由解析我们就介绍到这里。</p></div><div class=post_footer><div class=meta><div class=info><span class="field tags"><i class=remixicon-stack-line></i><a href=https://sanoon.me/tags/Flask%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/>Flask开发笔记</a>
+</code></pre><p>访问 <code>http://localhost:5005/</code> ， 页面会响应 <code>Hello Lemon</code></p><p>好了，关于 <code>Flask</code> 路由解析我们就介绍到这里。</p></div><div class=post_footer><div class=meta><div class=info><span class="field tags"><i class=remixicon-stack-line></i><a href=https://sanoon.me/tags/Flask%E5%BC%80%E5%8F%91%E7%AC%94%E8%AE%B0/>Flask开发笔记</a>
 <a href=https://sanoon.me/tags/Flask%E8%B7%AF%E7%94%B1/>Flask路由</a>
 <a href=https://sanoon.me/tags/Flask/>Flask</a>
 <a href=https://sanoon.me/tags/Python/>Python</a>
