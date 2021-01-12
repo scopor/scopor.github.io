@@ -27,8 +27,7 @@ def hello_path(name):
 </code></pre><p>访问 <code>http://localhost:5005/path/一蓑/烟雨</code> ， 页面响应 <code>Hello 一蓑/烟雨</code></p><hr><h3 id=uuid-类型的路由写法><code>uuid</code> 类型的路由写法</h3><pre><code>@app.route('/uuid/&lt;uuid:name&gt;')
 def hello_uuid(name):
     return 'Hello {}'.format(name)
-</code></pre><p>访问 <code>http://localhost:5005/uuid/一蓑/烟雨</code> ， 页面响应 <code>Not Found</code>，参数格式不正确。</p><p>此时必须传递 <code>uuid</code> 格式的字符串，正确访问 <code>http://localhost:5005/uuid/9503776e-3b43-4b06-be3f-1d99cbc06fc6</code>。</p><hr><p>###视图函数指定多个路由
-如果我想在不传递的参数的时候，使用默认值来处理响应，该如何定义路由呢？我们可以针对视图函数指定多个路由规则，并指定默认值，写法如下</p><pre><code>@app.route('/')
+</code></pre><p>访问 <code>http://localhost:5005/uuid/一蓑/烟雨</code> ， 页面响应 <code>Not Found</code>，参数格式不正确。</p><p>此时必须传递 <code>uuid</code> 格式的字符串，正确访问 <code>http://localhost:5005/uuid/9503776e-3b43-4b06-be3f-1d99cbc06fc6</code>。</p><hr><h3 id=视图函数指定多个路由>视图函数指定多个路由</h3><p>如果我想在不传递的参数的时候，使用默认值来处理响应，该如何定义路由呢？我们可以针对视图函数指定多个路由规则，并指定默认值，写法如下</p><pre><code>@app.route('/')
 @app.route('/&lt;name&gt;')
 def hello(name='Lemon'):
     return 'Hello {}'.format(name)
